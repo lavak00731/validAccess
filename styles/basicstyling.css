@@ -1,0 +1,151 @@
+/***
+    The new CSS reset - version 1.6.1 (last updated 25.5.2022)
+    GitHub page: https://github.com/elad2412/the-new-css-reset
+***/
+
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+ */
+ *:where(:not(html, iframe, canvas, img, svg, video):not(svg *, symbol *)) {
+    all: unset;
+    display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a, button {
+    cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol, ul, menu {
+    list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+    max-width: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+    border-collapse: collapse;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+    white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+    -webkit-appearance: revert;
+    appearance: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+    color: unset;
+}
+
+/* fix the feature of 'hidden' attribute.
+   display:revert; revert to element instead of attribute */
+:where([hidden]) {
+    display: none;
+}
+
+/* revert for bug in Chromium browsers
+   - fix for the content editable attribute will work properly. */
+:where([contenteditable]:not([contenteditable="false"])) {
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    overflow-wrap: break-word;
+    -webkit-line-break: after-white-space;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+    -webkit-user-drag: element;
+}
+/* Minimum Styling for these examples */ 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+}
+form {
+    padding: 1rem;
+}
+:where(input[type="text"],input[type="email"],input[type="number"],input[type="tel"],
+input[type="password"], textarea, select) {
+    border: 1px solid black;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+}
+select {
+    padding: 1rem 2rem 1rem 1rem;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMCA3LjMzbDIuODI5LTIuODMgOS4xNzUgOS4zMzkgOS4xNjctOS4zMzkgMi44MjkgMi44My0xMS45OTYgMTIuMTd6Ii8+PC9zdmc+");
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    background-size: 0.8rem;
+}
+label {
+    display: block;
+    margin-bottom: 0.2rem;
+}
+.field-wrapper {
+    margin-bottom: 1rem;
+}
+:where(input[type="radio"], input[type="checkbox"], .visuallyhidden) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+:where(input[type="radio"], input[type="checkbox"]) + label {
+    padding: 0 0 0 2rem;
+    position: relative;
+
+}
+:where([lang="ar"] input[type="radio"], [lang="ar"] input[type="checkbox"]) + label {
+    padding: 0 2rem 0 0;
+}
+input[type="radio"] + label::before, 
+input[type="checkbox"] + label::before {
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    border: 1px solid black;
+}
+input[type="radio"] + label::before {
+    border-radius: 50%;
+}
+input[type="checkbox"] + label::before {
+    border-radius: 0.3rem;
+}
+input[type="radio"]:checked + label::before {
+    background-image: radial-gradient(circle, black 50%, white 50%);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+input[type="checkbox"]:checked + label::before {
+    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iNzBweCIgaWQ9IkNhcGFfMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjYuNzI4IDcwOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgNjYuNzI4IDcwIiB3aWR0aD0iNjYuNzI4cHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnPjxnPjxwYXRoIGQ9Ik0yNC44MzksNzBjLTIuMTc2LDAtNC4yMzQtMS4wMTgtNS41NTctMi43NjRMMS40MTQsNDMuNjM5Yy0yLjMyNC0zLjA2OS0xLjcxOS03LjQzOSwxLjM1LTkuNzY0ICAgIGMzLjA3NC0yLjMyNiw3LjQ0MS0xLjcxNyw5Ljc2NiwxLjM1bDExLjc1MiwxNS41MThMNTMuODM5LDMuMjg1YzIuMDM1LTMuMjY1LDYuMzMyLTQuMjY0LDkuNjA0LTIuMjMyICAgIGMzLjI2OCwyLjAzNCw0LjI2Niw2LjMzNCwyLjIzLDkuNjAybC0zNC45MTYsNTYuMDZjLTEuMjEzLDEuOTQ5LTMuMzA3LDMuMTc1LTUuNiwzLjI3OUMyNS4wNSw2OS45OTgsMjQuOTQ1LDcwLDI0LjgzOSw3MHoiLz48L2c+PC9nPjxnLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjwvc3ZnPg==");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+}

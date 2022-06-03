@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validAccess - Accesible Validation Library</title>
+    <base href="/validAccess/">
+    <link rel="stylesheet" href="/validAccess/styles/basicstyling.css">
+</head>
+<body>
+    <main>
+        <article>
+            <h1>Example 1: Basic Form</h1>
+            <div class="form-wrapper">
+                <form action="">
+                    <div role="banner" tabIndex="-1" hidden>
+                        <span aria-hidden="true" class="error-icon"></span>
+                        Please look over the following form fields with errors
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" required aria-invalid="false" data-validA-required="name-error">                        
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname" id="lastname" required aria-invalid="false" data-validA-required="lastname-error">                       
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="age">Age</label>
+                        <input type="number" name="age" id="age" required aria-invalid="false" data-validA-required="age-error" pattern="/^\d+$/" data-validA-pattern="age-pattern-error">                        
+                    </div>
+                    <fieldset>
+                        <legend>Do you have a pet?</legend>
+                        <div class="field-wrapper">
+                            <input type="radio" name="pet" id="yes" required aria-invalid="false" data-validA-required="pet-error" aria-controls="petWrapper">
+                            <label for="yes">Yes</label>
+                            <input type="radio" name="pet" id="no" required aria-invalid="false" data-validA-required="pet-error">
+                            <label for="no">No</label>
+                        </div>
+                    </fieldset>
+                    <fieldset id="petWrapper" hidden>
+                        <legend>So you have a pet... What is it?</legend>
+                        <div class="field-wrapper">
+                            <input type="checkbox" name="pettype" id="dog" required aria-invalid="false" data-validA-required="pettype-error"><label for="dog">Dog</label>
+                            <input type="checkbox" name="pettype" id="cat" required aria-invalid="false" data-validA-required="pettype-error"><label for="cat">Cat</label>
+                            <input type="checkbox" name="pettype" id="fish" required aria-invalid="false" data-validA-required="pettype-error"><label for="fish">Fish</label>
+                        </div>
+                    </fieldset>
+                    <div class="field-wrapper">
+                        <label for="cardinal">What is your favorite cardinal point?</label>
+                        <select name="cardinal" id="cardinal" required aria-invalid="false" data-validA-required="cardinal-error">
+                            <option value="">Select a Cardinal Point</option>
+                            <option value="north">North</option>
+                            <option value="east">East</option>
+                            <option value="west">West</option>
+                            <option value="south">South</option>
+                        </select>
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="comment">Any Comment?</label>
+                        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="field-wrapper">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </main>
+</body>
+</html>
