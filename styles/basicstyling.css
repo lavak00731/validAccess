@@ -75,6 +75,10 @@ meter {
     -webkit-user-drag: element;
 }
 /* Minimum Styling for these examples */ 
+:root {
+    --main-color: black;
+    --focus-color: #0000FF;
+}
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -85,7 +89,7 @@ form {
 }
 :where(input[type="text"],input[type="email"],input[type="number"],input[type="tel"],
 input[type="password"], textarea, select) {
-    border: 1px solid black;
+    border: 2px solid var(--main-color);
     padding: 0.5rem;
     border-radius: 0.3rem;
 }
@@ -130,7 +134,7 @@ input[type="checkbox"] + label::before {
     top: 50%;
     transform: translateY(-50%);
     display: block;
-    border: 1px solid black;
+    border: 2px solid var(--main-color);
 }
 input[type="radio"] + label::before {
     border-radius: 50%;
@@ -138,8 +142,13 @@ input[type="radio"] + label::before {
 input[type="checkbox"] + label::before {
     border-radius: 0.3rem;
 }
+input[type="radio"]:focus-visible + label::before,
+input[type="checkbox"]:focus-visible + label::before {
+    border-color:var(--focus-color);
+    box-shadow: 3px 0px 3px var(--focus-color);
+}
 input[type="radio"]:checked + label::before {
-    background-image: radial-gradient(circle, black 50%, white 50%);
+    background-image: radial-gradient(circle, var(--main-color) 50%, white 50%);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -148,4 +157,15 @@ input[type="checkbox"]:checked + label::before {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 70%;
+}
+:where(input:focus-visible, textarea:focus-visible, select:focus-visible) {
+    border-color:var(--focus-color);
+    box-shadow: 1px 1px 3px var(--focus-color) inset;
+}
+button {
+    padding: 1rem 2rem;
+    border: 2px solid var(--main-color);
+}
+button:focus-visible {
+    border-color:var(--focus-color);
 }

@@ -41,9 +41,11 @@
                     <fieldset id="petWrapper" hidden>
                         <legend>So you have a pet... What is it?</legend>
                         <div class="field-wrapper">
-                            <input type="checkbox" name="pettype" id="dog" required aria-invalid="false" data-validA-required="pettype-error"><label for="dog">Dog</label>
-                            <input type="checkbox" name="pettype" id="cat" required aria-invalid="false" data-validA-required="pettype-error"><label for="cat">Cat</label>
-                            <input type="checkbox" name="pettype" id="fish" required aria-invalid="false" data-validA-required="pettype-error"><label for="fish">Fish</label>
+                            <select name="pettype" id="pettype" required aria-invalid="false" data-validA-required="pettype-error">
+                                <option value="dog">Dog</option>
+                                <option value="cat">Cat</option>
+                                <option value="fish">Fish</option>
+                            </select>                            
                         </div>
                     </fieldset>
                     <div class="field-wrapper">
