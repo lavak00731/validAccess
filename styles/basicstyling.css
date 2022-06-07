@@ -78,6 +78,7 @@ meter {
 :root {
     --main-color: black;
     --focus-color: #0000FF;
+    --background-color: #FFF;
 }
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -168,4 +169,6 @@ button {
 }
 button:focus-visible {
     border-color:var(--focus-color);
+    background-color: var(--focus-color);
+    color: var(--background-color);
 }
