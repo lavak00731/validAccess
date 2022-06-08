@@ -12,7 +12,7 @@
         <article>
             <h1>Example 1: Basic Form</h1>
             <div class="form-wrapper">
-                <form action="">
+                <form id="form1" action="">
                     <div role="banner" tabIndex="-1" hidden>
                         <span aria-hidden="true" class="error-icon"></span>
                         Please look over the following form fields with errors
@@ -69,5 +69,9 @@
             </div>
         </article>
     </main>
+    <script src="validAccess.js"></script>
+    <script>
+        let form = new validAccess('form1');
+    </script>
 </body>
 </html>
