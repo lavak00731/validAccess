@@ -60,7 +60,7 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="comment">Any Comment?</label>
-                        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                        <textarea name="comment" id="comment" cols="30" rows="10" required  data-validA-required="comment-error"></textarea>
                     </div>
                     <div class="field-wrapper">
                         <button type="submit">Submit</button>
@@ -71,7 +71,7 @@
     </main>
     <script src="validAccess.js"></script>
     <script>
-        let form = new validAccess('form1');
+        let form = new validAccess({formId: "form1"});
     </script>
 </body>
 </html>

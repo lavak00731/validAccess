@@ -1,0 +1,14 @@
+{
+    "en": {
+        "name-error": [
+            {"Required":"This field is required"}
+        ],
+        "lastname-error": [
+            {"Required":"This field is required"}
+        ],
+        "age-error": [
+            {"Required":"This field is required"},
+            {"Pattern":"Please enter a valid age"}
+        ]
+    }
+}
