@@ -61,7 +61,6 @@ class validAccess {
         const language = document.documentElement.lang;
         let msg; 
         this.formErrorMsgs[language][validationTargetId].forEach((element) => { 
-
             if (element) {
                if(element[validation]) {
                 return msg = element[validation];
@@ -81,13 +80,16 @@ class validAccess {
             const valMsgId = field.dataset['valida'+validation];
             //set the template of error paragraph
             const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(`${field.dataset['valida'+validation]}`,validation)}</p>`;
-            if(field.type === 'radio' || field.type === 'checkbox') {
-               const fieldWrapper =  field.closest('fieldset');
-               if(!this.formElem.querySelector('#'+field.dataset['valida'+validation])) {
-                fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate)
-               }
-            } else {
-                field.insertAdjacentHTML('afterend', errorMsgTemplate)
+            //checks if the element with error msg is not already in place
+            if(!this.formElem.querySelector('#'+field.dataset['valida'+validation])){
+                //Radio Buttons and checkboxes error msg is placed at the fieldset bottom
+                if(field.type === 'radio' || field.type === 'checkbox') {
+                    const fieldWrapper =  field.closest('fieldset');
+                    fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate);               
+                 } else {
+                    //other form fields, error msgs are inserted right after the element               
+                     field.insertAdjacentHTML('afterend', errorMsgTemplate);                                
+                 }
             }
         } else {
             throw new Error(`There is no validation message for ${validation} setted for form field #${field.id}`);
