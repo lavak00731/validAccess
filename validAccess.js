@@ -1,5 +1,5 @@
 function isformIdDefined() {    
-    throw new Error('form parameter is required');    
+    throw new Error('formId parameter is required');    
 }
 function validateFormId(formId){
     if(typeof formId !== 'string' || formId.trim() === ''){
@@ -7,22 +7,31 @@ function validateFormId(formId){
     }
     return formId;
 }
-async function isFormErrorsDefined(url) {
+function isErrorMsgDefined() {
+    throw new Error('formErrorMsgs parameter is required');
+}
+async function validateErrorMsgSource(url) {
     const msgs = await fetch(url);
     const errorMsg = await msgs.json();
-    return errorMsg;
+    if(errorMsg) {
+        return errorMsg;
+    } else {
+        throw new Error('It is needed to have a json defined for error messages')
+    }
+    
 }
 
 class validAccess {
     constructor({
         formId = isformIdDefined(),
-        formErrorMsgs = isFormErrorsDefined(url),
+        url = isErrorMsgDefined(),
         bannerClass = 'alert-banner',
         fieldError = 'error',
         errorIconClass = 'icon-error',
         isMultistep = false
     } = {}) {       
         this.formId = validateFormId(formId);
+        this.msgUrl = url
         this.formBannerClass = bannerClass;
         this.formFieldError = fieldError;
         this.formErrorIconClass = errorIconClass;
@@ -31,11 +40,15 @@ class validAccess {
         this.formChildrenInput;
         //init function
         this.init();
-    }    
+    } 
+   
     init() {
         //DOM Ready
-        document.addEventListener("DOMContentLoaded", (event) => {
-            event.preventDefault();            
+        document.addEventListener("DOMContentLoaded", async (event) => {
+            event.preventDefault();
+            if(!this.formErrorMsgs) {
+                this.formErrorMsgs = await validateErrorMsgSource(this.msgUrl); 
+            }           
             this.#validateForm(this.formElem);            
         });
     }
@@ -44,17 +57,30 @@ class validAccess {
         return elemToValidate.offsetParent !== null;
     }
     //
-    errorMsgs(validation) {
-        const msg = {
-            Required: 'This field is required'
-        }
-        return msg[validation];
+    errorMsgs(validationTargetId, validation) {
+        const language = document.documentElement.lang;
+        let msg; 
+        this.formErrorMsgs[language][validationTargetId].forEach((element) => { 
+
+            if (element) {
+               if(element[validation]) {
+                return msg = element[validation];
+               }
+            
+           } else {
+            console.log('no message')
+           }
+        });
+        
+        return msg
     }
     //show error message
     showErrorMsg(field, validation) {
         if(field.dataset['valida'+validation]) {
+            //get id for error message
             const valMsgId = field.dataset['valida'+validation];
-            const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(validation)}</p>`;
+            //set the template of error paragraph
+            const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(`${field.dataset['valida'+validation]}`,validation)}</p>`;
             if(field.type === 'radio' || field.type === 'checkbox') {
                const fieldWrapper =  field.closest('fieldset');
                if(!this.formElem.querySelector('#'+field.dataset['valida'+validation])) {

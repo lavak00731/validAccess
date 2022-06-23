@@ -9,6 +9,18 @@
         "age-error": [
             {"Required":"This field is required"},
             {"Pattern":"Please enter a valid age"}
+        ],
+        "pet-error": [
+            {"Required": "This field is required"}
+        ],
+        "pettype-error": [
+            {"Required": "This field is required"}
+        ],
+        "cardinal-error": [
+            {"Required": "This field is required"}
+        ],
+        "comment-error": [
+            {"Required": "This field is required"}
         ]
     }
 }
