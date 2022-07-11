@@ -88,7 +88,7 @@ class validAccess {
                     fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate);               
                  } else {
                     //other form fields, error msgs are inserted right after the element               
-                     field.parentElement.insertAdjacentHTML('afterend', errorMsgTemplate);                                
+                     field.parentElement.insertAdjacentHTML('beforeend', errorMsgTemplate);                                
                  }
             }
         } else {
@@ -100,6 +100,7 @@ class validAccess {
         console.log(elemErrorMsg);
 
     }
+    
     //add data to element with aria-describedby
     backUpHelpText(elem) {
         if(!elem.dataset.validaAriaDescribed && elem.getAttribute('aria-describedby')) {
