@@ -56,7 +56,7 @@ class validAccess {
     isVisibleElem(elemToValidate) {
         return elemToValidate.offsetParent !== null;
     }
-    //
+    //error msg
     errorMsgs(validationTargetId, validation) {
         const language = document.documentElement.lang;
         let msg; 
@@ -64,18 +64,18 @@ class validAccess {
             if (element) {
                if(element[validation]) {
                 return msg = element[validation];
-               }
-            
+               }            
            } else {
             console.log('no message')
            }
-        });
-        
+        });        
         return msg
     }
     //show error message
     showErrorMsg(field, validation) {
         if(field.dataset['valida'+validation]) {
+            //set field as aria-invalid true
+            field.setAttribute('aria-invalid', true);
             //get id for error message
             const valMsgId = field.dataset['valida'+validation];
             //set the template of error paragraph
@@ -88,16 +88,29 @@ class validAccess {
                     fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate);               
                  } else {
                     //other form fields, error msgs are inserted right after the element               
-                     field.insertAdjacentHTML('afterend', errorMsgTemplate);                                
+                     field.parentElement.insertAdjacentHTML('afterend', errorMsgTemplate);                                
                  }
             }
         } else {
             throw new Error(`There is no validation message for ${validation} setted for form field #${field.id}`);
         }
     }
+    removeErrorMessage(elem) {
+        let elemErrorMsg = elem.dataset['valida']
+        console.log(elemErrorMsg);
+
+    }
+    //add data to element with aria-describedby
+    backUpHelpText(elem) {
+        if(!elem.dataset.validaAriaDescribed && elem.getAttribute('aria-describedby')) {
+           elem.dataset.validaAriaDescribed = elem.getAttribute('aria-describedby');
+        }
+    }
     //validates each form input
     validateInput(elemToValidate) {
         const validationStatus = elemToValidate.validity;
+        this.backUpHelpText(elemToValidate);
+        this.removeErrorMessage(elemToValidate);
         if(this.isVisibleElem(elemToValidate)) {
             if (!validationStatus.valid) {
                 for ( const validProp in validationStatus) {
