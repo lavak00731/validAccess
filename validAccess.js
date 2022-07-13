@@ -95,12 +95,39 @@ class validAccess {
             throw new Error(`There is no validation message for ${validation} setted for form field #${field.id}`);
         }
     }
-    removeErrorMessage(elem) {
-        let elemErrorMsg = elem.dataset['valida']
-        console.log(elemErrorMsg);
-
+    checkIfAriaDescribedby(elem) {
+        if(elem.dataset.validaAriaDescribed) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+    //remove error msg
+    removeErrorMessage(elem) {
+        //set aria-invalid to false
+        elem.setAttribute('aria-invalid', false);
+        //all datasets in the element
+        let elemErrorMsg = elem.dataset;
+        //loop throught all datasets
+        for (const errorKey in elemErrorMsg) {
+            //capture each data
+            let featureToRemove = elemErrorMsg[errorKey];
+            //if the element which is refered exists
+            if(document.querySelector('#'+featureToRemove)) {
+                //check if that element has the error field class, then erase it
+                if(document.querySelector('#'+featureToRemove).classList.contains(this.formFieldError)) {
+                    document.querySelector('#'+featureToRemove).parentElement.removeChild(document.querySelector('#'+featureToRemove));
+                }
+            }            
+        }
+        //remove attribute aria-describedby from element
+        elem.removeAttribute('aria-describedby');
+        //in case form field has a help text
+        //it is checked if it had one and then restore it
+        if(this.checkIfAriaDescribedby(elem)) {
+            elem.setAttribute('aria-describedby', elem.dataset.validaAriaDescribed)
+        }
+    }    
     //add data to element with aria-describedby
     backUpHelpText(elem) {
         if(!elem.dataset.validaAriaDescribed && elem.getAttribute('aria-describedby')) {
