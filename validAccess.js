@@ -71,6 +71,56 @@ class validAccess {
         });        
         return msg
     }
+    //adding events per field after try submiting
+    eventGiver(elem) {
+        if(!elem.dataset.validaEventAdded) {
+            elem.dataset.validaEventAdded = "";
+            let that = this;
+            switch (elem.nodeName) {
+                case "TEXTAREA":
+                    elem.addEventListener('input', function(){
+                        that.validateInput(elem);
+                    });
+                    break;
+                case "SELECT":
+                    elem.addEventListener('change', function(){
+                        that.validateInput(elem)
+                    });
+                    break;
+                case "INPUT":
+                    switch(elem.getAttribute('type')) {
+                        case "text":
+                        case "number":
+                        case "tel":
+                        case "email":
+                        case "url":
+                        case "password":
+                            elem.addEventListener('input', function(){
+                                that.validateInput(elem);
+                            });
+                            break;
+                        case "date":
+                        case "file":
+                        case "datetime-local":
+                        case "month":
+                        case "range":
+                        case "time":
+                        case "week":
+                        case "checkbox":
+                        case "radio":
+                        case "color":
+                            elem.addEventListener('change', function(){
+                                that.validateInput(elem)
+                            });
+                            break;
+                    }
+                    
+                    break;                
+                default:                    
+                    break;
+            }
+        }        
+    }
     //show error message
     showErrorMsg(field, validation) {
         if(field.dataset['valida'+validation]) {
@@ -112,13 +162,17 @@ class validAccess {
         for (const errorKey in elemErrorMsg) {
             //capture each data
             let featureToRemove = elemErrorMsg[errorKey];
-            //if the element which is refered exists
-            if(document.querySelector('#'+featureToRemove)) {
-                //check if that element has the error field class, then erase it
-                if(document.querySelector('#'+featureToRemove).classList.contains(this.formFieldError)) {
-                    document.querySelector('#'+featureToRemove).parentElement.removeChild(document.querySelector('#'+featureToRemove));
+            //checks if the feature is not null or empty
+            if(featureToRemove) {
+                //if the element which is refered exists
+                if(document.querySelector('#'+featureToRemove)) {
+                    //check if that element has the error field class, then erase it
+                    if(document.querySelector('#'+featureToRemove).classList.contains(this.formFieldError)) {
+                        document.querySelector('#'+featureToRemove).parentElement.removeChild(document.querySelector('#'+featureToRemove));
+                    }
                 }
-            }            
+            }
+                        
         }
         //remove attribute aria-describedby from element
         elem.removeAttribute('aria-describedby');
@@ -136,6 +190,7 @@ class validAccess {
     }
     //validates each form input
     validateInput(elemToValidate) {
+        console.log(elemToValidate)
         const validationStatus = elemToValidate.validity;
         this.backUpHelpText(elemToValidate);
         this.removeErrorMessage(elemToValidate);
@@ -146,6 +201,7 @@ class validAccess {
                         switch (validProp) {
                             case "valueMissing":
                                 this.showErrorMsg(elemToValidate, 'Required');
+                                this.eventGiver(elemToValidate);
                                 break;
                             case "typeMismatch":
                             
