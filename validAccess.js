@@ -27,14 +27,12 @@ class validAccess {
         url = isErrorMsgDefined(),
         bannerClass = 'alert-banner',
         fieldError = 'error',
-        errorIconClass = 'icon-error',
         isMultistep = false
     } = {}) {       
         this.formId = validateFormId(formId);
         this.msgUrl = url
         this.formBannerClass = bannerClass;
         this.formFieldError = fieldError;
-        this.formErrorIconClass = errorIconClass;
         this.formIsMultistep = isMultistep;
         this.formElem = document.querySelector('#'+this.formId);
         this.formChildrenInput;
@@ -48,8 +46,12 @@ class validAccess {
             event.preventDefault();
             if(!this.formErrorMsgs) {
                 this.formErrorMsgs = await validateErrorMsgSource(this.msgUrl); 
-            }           
-            this.#validateForm(this.formElem);            
+            }
+            //add the custom class to the banner
+            this.formElem.querySelector('[role="banner"]').classList.add(this.formBannerClass);
+            //waiting for user to make a click on submit button
+            //using click event since Submit does not aloud show custom messages           
+            this.formElem.querySelector('[type="submit"]').addEventListener('click', this.#validateForm.bind(this));
         });
     }
     //checks if the element is visible
@@ -188,12 +190,22 @@ class validAccess {
            elem.dataset.validaAriaDescribed = elem.getAttribute('aria-describedby');
         }
     }
+    //shows and hide banner
+    showHideBanner () {
+        //if there are field with aria-invalid, error banner must be shown
+        if(this.formElem.querySelector('[aria-invalid="true"]') && !this.isVisibleElem(this.formElem.querySelector('.'+this.formBannerClass))) {
+            this.formElem.querySelector('.'+this.formBannerClass).removeAttribute('hidden');
+            this.formElem.querySelector('.'+this.formBannerClass).focus();
+        } else {
+            this.formElem.querySelector('.'+this.formBannerClass).setAttribute('hidden', true);
+        }
+    }
     //validates each form input
     validateInput(elemToValidate) {
-        console.log(elemToValidate)
         const validationStatus = elemToValidate.validity;
         this.backUpHelpText(elemToValidate);
         this.removeErrorMessage(elemToValidate);
+        //checks if the element is visible
         if(this.isVisibleElem(elemToValidate)) {
             if (!validationStatus.valid) {
                 for ( const validProp in validationStatus) {
@@ -233,26 +245,18 @@ class validAccess {
                     }
                 }
             }
-        }        
-    }
-    //starts the process for validation
-    validateFormElems(e) {
-        e.preventDefault();
-        //checks if it is an input type submit or a type button
-        if(e.target.getAttribute('type') === "submit" && !this.isMultistep) {
-            this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
-            this.formChildrenInput.forEach((inputElem)=>{ this.validateInput(inputElem) })
         }
     }
-    //Sets the submit event
-    submitHandler(form) {
-        form.addEventListener('click', this.validateFormElems.bind(this));
-    }
     //Starts the validation Process
-    #validateForm(form) {
-        if(form !== null) {
-            //sets the main sub
-            this.submitHandler(form);
+    #validateForm(e) {
+        if(!!e.currentTarget) {
+            e.preventDefault();
+            //checks if it is an multistep
+            if(!this.isMultistep) {
+                this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
+                this.formChildrenInput.forEach((inputElem)=>{ this.validateInput(inputElem) });
+                this.showHideBanner();               
+            }
         } else {
             throw new Error('The form you are trying to set up is not present in the DOM');
         }
