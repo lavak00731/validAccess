@@ -7,8 +7,8 @@ function validateFormId(formId){
     }
     return formId;
 }
-function isErrorMsgDefined() {
-    throw new Error('formErrorMsgs parameter is required');
+function isParameterDefined(param) {
+    throw new Error(`${param} parameter is required`);
 }
 async function validateErrorMsgSource(url) {
     const msgs = await fetch(url);
@@ -24,15 +24,19 @@ async function validateErrorMsgSource(url) {
 class validAccess {
     constructor({
         formId = isformIdDefined(),
-        url = isErrorMsgDefined(),
+        url = isParameterDefined('url'),
+        msgUrl = isParameterDefined('msgUrl'),
         bannerClass = 'alert-banner',
         fieldError = 'error',
+        loadingWrapper = 'loading-container',
         isMultistep = false
     } = {}) {       
         this.formId = validateFormId(formId);
-        this.msgUrl = url
+        this.url = url;
+        this.msgUrl = msgUrl;
         this.formBannerClass = bannerClass;
         this.formFieldError = fieldError;
+        this.loadingWrapper = this.loadingWrapper;
         this.formIsMultistep = isMultistep;
         this.formElem = document.querySelector('#'+this.formId);
         this.formChildrenInput;
@@ -247,6 +251,10 @@ class validAccess {
             }
         }
     }
+    //check for complete valid form
+    isValidForm() {
+
+    }
     //Starts the validation Process
     #validateForm(e) {
         if(!!e.currentTarget) {
@@ -255,7 +263,11 @@ class validAccess {
             if(!this.isMultistep) {
                 this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
                 this.formChildrenInput.forEach((inputElem)=>{ this.validateInput(inputElem) });
-                this.showHideBanner();               
+                this.showHideBanner(); 
+            }
+            //checks for the form fields to not have aria-invalid="true"
+            if(this.isValidForm()) {
+
             }
         } else {
             throw new Error('The form you are trying to set up is not present in the DOM');
