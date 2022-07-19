@@ -27,16 +27,20 @@ class validAccess {
         url = isParameterDefined('url'),
         msgUrl = isParameterDefined('msgUrl'),
         bannerClass = 'alert-banner',
+        loadingWrapper = 'loadingWrapper',
+        isLoadingTextVisible = true,
+        loadingImg = isParameterDefined('loadingImg'),
         fieldError = 'error',
-        loadingWrapper = 'loading-container',
         isMultistep = false
     } = {}) {       
         this.formId = validateFormId(formId);
         this.url = url;
         this.msgUrl = msgUrl;
         this.formBannerClass = bannerClass;
+        this.loadingWrapper = loadingWrapper;
+        this.loadingImg = loadingImg;
+        this.isLoadingTextVisible = isLoadingTextVisible;
         this.formFieldError = fieldError;
-        this.loadingWrapper = this.loadingWrapper;
         this.formIsMultistep = isMultistep;
         this.formElem = document.querySelector('#'+this.formId);
         this.formChildrenInput;
@@ -48,8 +52,8 @@ class validAccess {
         //DOM Ready
         document.addEventListener("DOMContentLoaded", async (event) => {
             event.preventDefault();
-            if(!this.formErrorMsgs) {
-                this.formErrorMsgs = await validateErrorMsgSource(this.msgUrl); 
+            if(!this.formMsgs) {
+                this.formMsgs = await validateErrorMsgSource(this.msgUrl); 
             }
             //add the custom class to the banner
             this.formElem.querySelector('[role="banner"]').classList.add(this.formBannerClass);
@@ -64,9 +68,8 @@ class validAccess {
     }
     //error msg
     errorMsgs(validationTargetId, validation) {
-        const language = document.documentElement.lang;
         let msg; 
-        this.formErrorMsgs[language][validationTargetId].forEach((element) => { 
+        this.formMsgs[document.documentElement.lang]['validation'][validationTargetId].forEach((element) => { 
             if (element) {
                if(element[validation]) {
                 return msg = element[validation];
@@ -194,14 +197,16 @@ class validAccess {
            elem.dataset.validaAriaDescribed = elem.getAttribute('aria-describedby');
         }
     }
-    //shows and hide banner
-    showHideBanner () {
+    //shows and hide banner checking for a valid form
+    isValidForm () {
         //if there are field with aria-invalid, error banner must be shown
         if(this.formElem.querySelector('[aria-invalid="true"]') && !this.isVisibleElem(this.formElem.querySelector('.'+this.formBannerClass))) {
             this.formElem.querySelector('.'+this.formBannerClass).removeAttribute('hidden');
             this.formElem.querySelector('.'+this.formBannerClass).focus();
+            return false;
         } else {
             this.formElem.querySelector('.'+this.formBannerClass).setAttribute('hidden', true);
+            return true;
         }
     }
     //validates each form input
@@ -251,24 +256,57 @@ class validAccess {
             }
         }
     }
-    //check for complete valid form
-    isValidForm() {
+    //show backdrop
+    showBckDrop() {
+        //backdrop wrapper
+        const template = document.createElement('div');
+        //loading img
+        const loadImg = document.createElement('img');
+        //img wrapper
+        const imgWrapper = document.createElement('figure');
+        //loading text wrapper
+        const loadingText = document.createElement('p');
+        //setting img url
+        loadImg.setAttribute('src', this.loadingImg);
+        //adding the class selected to the user to the template as CSS reference
+        template.classList.add(this.loadingWrapper);
+        //appending img to img wrapper
+        imgWrapper.append(loadImg);
+        //adding text to text wrapper
+        loadingText.append(this.formMsgs[document.documentElement.lang]['sending']);
+        //setting tabIndex, 
+        loadingText.setAttribute('tabIndex', '-1');
+        //inserting img and text to the template
+        template.append(imgWrapper, loadingText);
+        //including template to the body element
+        document.body.append(template);
+        //focus text
+        document.querySelector('.'+this.loadingWrapper+' p[tabIndex="-1"]').focus();
 
+        
+        
+    }
+    //sending form
+    sendingForm(formElem) {
+        const formToSend = new FormData(formElem);
+        this.showBckDrop();
     }
     //Starts the validation Process
     #validateForm(e) {
         if(!!e.currentTarget) {
             e.preventDefault();
-            //checks if it is an multistep
-            if(!this.isMultistep) {
-                this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
-                this.formChildrenInput.forEach((inputElem)=>{ this.validateInput(inputElem) });
-                this.showHideBanner(); 
-            }
-            //checks for the form fields to not have aria-invalid="true"
+            this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
+            this.formChildrenInput.forEach((inputElem)=>{ this.validateInput(inputElem) });
             if(this.isValidForm()) {
-
+                //checks if it is an multistep
+                if(!this.isMultistep) {
+                    this.sendingForm(this.formElem)
+                } else {
+                    //multistep process
+                }
             }
+            
+            
         } else {
             throw new Error('The form you are trying to set up is not present in the DOM');
         }
