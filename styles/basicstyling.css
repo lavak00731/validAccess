@@ -99,6 +99,12 @@ body {
     font-size: 18px;
     line-height: 1.5;
 }
+h1 {
+    font-size: 3rem;
+}
+h2 {
+    font-size: 2rem;
+}
 form {
     padding: 1rem;
 }
@@ -212,4 +218,11 @@ button:focus-visible {
     width: 25px;
     height: 25px;
     vertical-align: middle;
+}
+.loadingWrapper figure,
+.loadingWrapper p {
+    padding: 0.5rem;
+    background: var(--background-color);
+    width: 20%;
+    text-align: center;
 }

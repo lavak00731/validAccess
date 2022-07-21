@@ -25,6 +25,8 @@ class validAccess {
     constructor({
         formId = isformIdDefined(),
         url = isParameterDefined('url'),
+        success = isParameterDefined('success'),
+        error = isParameterDefined('error'),
         msgUrl = isParameterDefined('msgUrl'),
         bannerClass = 'alert-banner',
         loadingWrapper = 'loadingWrapper',
@@ -35,6 +37,8 @@ class validAccess {
     } = {}) {       
         this.formId = validateFormId(formId);
         this.url = url;
+        this.success = success;
+        this.error = error;
         this.msgUrl = msgUrl;
         this.formBannerClass = bannerClass;
         this.loadingWrapper = loadingWrapper;
@@ -272,6 +276,10 @@ class validAccess {
         styleTag.append(styleContent);
         document.head.append(styleTag)
     }
+    //hide backdrop
+    hideBckDrop() {
+        document.querySelector('.'+this.loadingWrapper).parentElement.removeChild(document.querySelector('.'+this.loadingWrapper));
+    }
     //show backdrop
     showBckDrop() {
         //backdrop wrapper
@@ -303,10 +311,36 @@ class validAccess {
         //focus text
         document.querySelector('.'+this.loadingWrapper+' [tabIndex="-1"]').focus();        
     }
+    //final msg
+    showFinalMsg(msg){
+        this.formElem.setAttribute('hidden', true);
+        document.querySelector('#'+msg).removeAttribute('hidden');
+        //focus title or sentence to show final msg
+        document.querySelector('#'+msg+' [tabIndex="-1"]');
+    }
     //sending form
     sendingForm(formElem) {
         const formToSend = new FormData(formElem);
         this.showBckDrop();
+        
+        fetch(this.url, {
+            method: 'POST', // or 'PUT'
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formToSend),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            this.hideBckDrop();
+            this.showFinalMsg(this.success);
+        })
+        .catch((error) => {
+            this.hideBckDrop();
+            this.showFinalMsg(this.error);
+            console.error('Error:', error);
+        });
     }
     //Starts the validation Process
     #validateForm(e) {
