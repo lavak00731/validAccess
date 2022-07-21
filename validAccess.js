@@ -256,6 +256,22 @@ class validAccess {
             }
         }
     }
+    styleInjector() {
+        const styleTag = document.createElement('style');
+        styleTag.dataset.validStyle = "true";
+        const styleContent = `${"."}${this.loadingWrapper} { display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.3 );}`;
+        styleTag.append(styleContent);
+        document.head.append(styleTag)
+    }
     //show backdrop
     showBckDrop() {
         //backdrop wrapper
@@ -278,13 +294,14 @@ class validAccess {
         loadingText.setAttribute('tabIndex', '-1');
         //inserting img and text to the template
         template.append(imgWrapper, loadingText);
+        //checks if there is no a style tag with data valid style in place, if it will be inserted
+        if(!document.querySelector('[data-valid-style="true"]')) {
+            this.styleInjector();
+        }
         //including template to the body element
         document.body.append(template);
         //focus text
-        document.querySelector('.'+this.loadingWrapper+' p[tabIndex="-1"]').focus();
-
-        
-        
+        document.querySelector('.'+this.loadingWrapper+' [tabIndex="-1"]').focus();        
     }
     //sending form
     sendingForm(formElem) {
