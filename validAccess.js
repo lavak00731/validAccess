@@ -154,6 +154,14 @@ class validAccess {
                      field.parentElement.insertAdjacentHTML('beforeend', errorMsgTemplate);                                
                  }
             }
+            //add aria-describedby
+            if(this.checkIfAriaDescribedby(field)) {
+                //if there was already aria-describedby attribute, just add the saved value, plus the error
+                field.setAttribute('aria-describedby', field.dataset.validaAriaDescribed +' '+ valMsgId);
+            } else {
+                //if not add just error one
+                field.setAttribute('aria-describedby', valMsgId);
+            }
         } else {
             throw new Error(`There is no validation message for ${validation} setted for form field #${field.id}`);
         }
@@ -182,6 +190,12 @@ class validAccess {
                     //check if that element has the error field class, then erase it
                     if(document.querySelector('#'+featureToRemove).classList.contains(this.formFieldError)) {
                         document.querySelector('#'+featureToRemove).parentElement.removeChild(document.querySelector('#'+featureToRemove));
+                        //remove aria-describedby
+                        elem.removeAttribute('aria-describedby')
+                        //but if there was a helping text put it back
+                        if(this.checkIfAriaDescribedby(elem)){
+                            elem.setAttribute('aria-describedby', elem.dataset.validaAriaDescribed);
+                        }
                     }
                 }
             }
@@ -197,9 +211,11 @@ class validAccess {
     }    
     //add data to element with aria-describedby
     backUpHelpText(elem) {
-        if(!elem.dataset.validaAriaDescribed && elem.getAttribute('aria-describedby')) {
-           elem.dataset.validaAriaDescribed = elem.getAttribute('aria-describedby');
-        }
+        if(!this.checkIfAriaDescribedby(elem)) {
+            if(!elem.dataset.validaAriaDescribed && elem.getAttribute('aria-describedby') && !elem.hasAttribute('data-valida-event-added')) {
+                elem.dataset.validaAriaDescribed = elem.getAttribute('aria-describedby');
+            }
+        }        
     }
     //shows and hide banner checking for a valid form
     isValidForm () {
