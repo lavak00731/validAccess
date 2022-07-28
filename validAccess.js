@@ -71,9 +71,10 @@ class validAccess {
         return elemToValidate.offsetParent !== null;
     }
     //error msg
-    errorMsgs(validationTargetId, validation) {
+    errorMsgs(elemId, validation) {
+        console.log(elemId)
         let msg; 
-        this.formMsgs[document.documentElement.lang]['validation'][validationTargetId].forEach((element) => { 
+        this.formMsgs[document.documentElement.lang]['validation'][elemId].forEach((element) => { 
             if (element) {
                if(element[validation]) {
                 return msg = element[validation];
@@ -142,7 +143,7 @@ class validAccess {
             //get id for error message
             const valMsgId = field.dataset['valida'+validation];
             //set the template of error paragraph
-            const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(`${field.dataset['valida'+validation]}`,validation)}</p>`;
+            const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(`${field.name}`,validation)}</p>`;
             //checks if the element with error msg is not already in place
             if(!this.formElem.querySelector('#'+field.dataset['valida'+validation])){
                 //Radio Buttons and checkboxes error msg is placed at the fieldset bottom
@@ -263,10 +264,12 @@ class validAccess {
                             
                                 break;
                             case "patternMismatch":
-                            
+                                this.showErrorMsg(elemToValidate, 'Pattern');
+                                this.eventGiver(elemToValidate);
                                 break;
                             case "badInput":
-                        
+                                this.showErrorMsg(elemToValidate, 'Badinput');
+                                this.eventGiver(elemToValidate);
                                 break;
                             default:
                                 break;
