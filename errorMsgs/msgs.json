@@ -2,26 +2,40 @@
     "en": {
         "validation": {
             "name": [
-                {"Required":"This field is required"}
+                {"type":"Required",
+                "msg":"This field is required"}
             ],
             "lastname": [
-                {"Required":"This field is required"}
+                {"type":"Required",
+                "msg":"This field is required"}
             ],
             "age": [
-                {"Required":"This field is required"},
-                {"Badinput": "Please write a number"}                
+                {"type":"Required",
+                "msg":"This field is required"},
+                {"type":"Badinput",
+                "msg": "Please write a number"}                
+            ],
+            "email": [
+                {"type":"Required",
+                "msg":"This field is required"},
+                {"type":"Email",
+                "msg":"This"}                  
             ],
             "pet": [
-                {"Required": "This field is required"}
+                {"type":"Required",
+                "msg":"This field is required"}
             ],
             "pettype": [
-                {"Required": "This field is required"}
+                {"type":"Required",
+                "msg":"This field is required"}
             ],
             "cardinal": [
-                {"Required": "This field is required"}
+                {"type":"Required",
+                "msg": "This field is required"}
             ],
             "comment": [
-                {"Required": "This field is required"}
+                {"type":"Required",
+                "msg": "This field is required"}
             ]
         },
         "sending": "Form is being sent..."       

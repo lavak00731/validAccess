@@ -71,19 +71,13 @@ class validAccess {
         return elemToValidate.offsetParent !== null;
     }
     //error msg
-    errorMsgs(elemId, validation) {
-        console.log(elemId)
-        let msg; 
-        this.formMsgs[document.documentElement.lang]['validation'][elemId].forEach((element) => { 
-            if (element) {
-               if(element[validation]) {
-                return msg = element[validation];
-               }            
-           } else {
-            console.log('no message')
-           }
-        });        
-        return msg
+    errorMsgs(elemName, validation) {
+        let msgObj = this.formMsgs[document.documentElement.lang]['validation'][elemName].filter((valid) => (valid.type === validation) ? valid.msg : false);      
+        if(msgObj[0]) {
+            return msgObj[0].msg;
+        } else {
+            throw new Error('no message set to element '+elemName+' in validation '+validation);
+        }
     }
     //adding events per field after try submiting
     eventGiver(elem) {
@@ -221,7 +215,7 @@ class validAccess {
     //shows and hide banner checking for a valid form
     isValidForm () {
         //if there are field with aria-invalid, error banner must be shown
-        if(this.formElem.querySelector('[aria-invalid="true"]') && !this.isVisibleElem(this.formElem.querySelector('.'+this.formBannerClass))) {
+        if(this.formElem.querySelectorAll('[aria-invalid="true"]').length > 0) {
             this.formElem.querySelector('.'+this.formBannerClass).removeAttribute('hidden');
             this.formElem.querySelector('.'+this.formBannerClass).focus();
             return false;
@@ -246,7 +240,8 @@ class validAccess {
                                 this.eventGiver(elemToValidate);
                                 break;
                             case "typeMismatch":
-                            
+                                this.showErrorMsg(elemToValidate, 'Email');
+                                this.eventGiver(elemToValidate);
                                 break;
                             case "tooShort":
                         
