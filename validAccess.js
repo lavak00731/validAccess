@@ -249,6 +249,7 @@ class validAccess {
                                 this.eventGiver(elemToValidate);
                                 break;
                             case "tooLong":
+                                //in some browsers ui it does not trigger since the characters amount is cut
                                 this.showErrorMsg(elemToValidate, 'Maxlength');
                                 this.eventGiver(elemToValidate);
                                 break;
