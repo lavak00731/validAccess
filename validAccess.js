@@ -72,12 +72,13 @@ class validAccess {
     }
     //error msg
     errorMsgs(elemName, validation) {
-        let msgObj = this.formMsgs[document.documentElement.lang]['validation'][elemName].filter((valid) => (valid.type === validation) ? valid.msg : false);      
-        if(msgObj[0]) {
+        try {
+            let msgObj = this.formMsgs[document.documentElement.lang]['validation'][elemName].filter((valid) => (valid.type === validation) ? valid.msg : false);      
             return msgObj[0].msg;
-        } else {
+        } catch {
             throw new Error('no message set to element '+elemName+' in validation '+validation);
         }
+        
     }
     //adding events per field after try submiting
     eventGiver(elem) {
@@ -244,7 +245,8 @@ class validAccess {
                                 this.eventGiver(elemToValidate);
                                 break;
                             case "tooShort":
-                        
+                                this.showErrorMsg(elemToValidate, 'Minlength');
+                                this.eventGiver(elemToValidate);
                                 break;
                             case "tooLong":
                             

@@ -19,7 +19,7 @@
                 {"type":"Required",
                 "msg":"This field is required"},
                 {"type":"Email",
-                "msg":"This"}                  
+                "msg":"This field is required"}                  
             ],
             "pet": [
                 {"type":"Required",
@@ -28,6 +28,12 @@
             "pettype": [
                 {"type":"Required",
                 "msg":"This field is required"}
+            ],
+            "favoriteword": [
+                {"type": "Required",
+                "msg":"This field is required"},
+                {"type": "Minlength",
+                "msg":"Please at least 3 characters are needed"}
             ],
             "cardinal": [
                 {"type":"Required",
