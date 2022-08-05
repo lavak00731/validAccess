@@ -29,11 +29,11 @@
                 {"type":"Required",
                 "msg":"This field is required"}
             ],
-            "favoriteword": [
+            "hero": [
                 {"type": "Required",
                 "msg":"This field is required"},
                 {"type": "Minlength",
-                "msg":"Please at least 3 characters are needed"}
+                "msg":"Please at least 10 characters are needed"}
             ],
             "cardinal": [
                 {"type":"Required",

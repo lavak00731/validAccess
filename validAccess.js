@@ -249,7 +249,8 @@ class validAccess {
                                 this.eventGiver(elemToValidate);
                                 break;
                             case "tooLong":
-                            
+                                this.showErrorMsg(elemToValidate, 'Maxlength');
+                                this.eventGiver(elemToValidate);
                                 break;
                             case "stepMismatch":
                             

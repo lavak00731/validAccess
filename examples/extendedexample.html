@@ -10,7 +10,7 @@
 <body>
     <main>
         <article>
-            <h1>Example 1: Basic Form</h1>
+            <h1>Example 2: Form Extended</h1>
             <div class="form-wrapper">
                 <form id="form1" action="welcome.html">
                     <div role="banner" tabIndex="-1" hidden>
@@ -55,9 +55,9 @@
                         </div>
                     </fieldset>
                     <div class="field-wrapper">
-                        <label for="favoriteword">Your Favorite Word</label>
-                        <input type="text" name="favoriteword" id="favoriteword" required aria-invalid="false" aria-describedby="min-description" data-validA-required="minlength-required" data-validA-minlength="minlength-error" minlength="3">
-                        <p id="min-description">A minimum quantity of 3 letters are needed</p>
+                        <label for="hero">Your Favorite Super Hero</label>
+                        <input type="text" name="hero" id="hero" required aria-invalid="false" aria-describedby="min-description" data-validA-required="minlength-required" data-validA-minlength="minlength-error" minlength="10">
+                        <p id="min-description">A minimum quantity of 10 letters are needed</p>
                     </div>
                     <div class="field-wrapper">
                         <label for="cardinal">What is your favorite cardinal point?</label>
@@ -71,7 +71,8 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="comment">Any Comment?</label>
-                        <textarea name="comment" id="comment" cols="30" rows="10" required  data-validA-required="comment-error"></textarea>
+                        <textarea name="comment" id="comment" cols="30" rows="10" aria-describedby="max-characters" required  data-validA-required="comment-error" maxlength="200" data-validA-maxlength="maxlength-error"></textarea>
+                        <p id="max-characters">A maximum quantity of 200 letters are needed</p>
                     </div>
                     <div class="field-wrapper">
                         <button type="submit">Submit</button>
