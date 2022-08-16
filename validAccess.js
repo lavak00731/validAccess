@@ -254,7 +254,8 @@ class validAccess {
                                 this.eventGiver(elemToValidate);
                                 break;
                             case "stepMismatch":
-                            
+                                this.showErrorMsg(elemToValidate, 'Stepmismatch');
+                                this.eventGiver(elemToValidate);
                                 break;
                             case "rangeUnderFlow":
                         

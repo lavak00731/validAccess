@@ -35,6 +35,12 @@
                 {"type": "Minlength",
                 "msg":"Please at least 10 characters are needed"}
             ],
+            "step": [
+                {"type": "Required",
+                "msg":"This field is required"}, 
+                {"type": "Stepmismatch",
+                "msg":"This field must be filled with a number based from 2 on"}
+            ],
             "cardinal": [
                 {"type":"Required",
                 "msg": "This field is required"}

@@ -60,6 +60,10 @@
                         <p id="min-description">A minimum quantity of 10 letters are needed</p>
                     </div>
                     <div class="field-wrapper">
+                        <label for="step">What is your favorite number from the table of 2?</label>
+                        <input type="number" name="step" id="step" required aria-invalid="false" min="2"  data-validA-required="step-required" data-validA-stepmismatch="step-error" step="2">
+                    </div>
+                    <div class="field-wrapper">
                         <label for="cardinal">What is your favorite cardinal point?</label>
                         <select name="cardinal" id="cardinal" required aria-invalid="false" data-validA-required="cardinal-error">
                             <option value="">Select a Cardinal Point</option>
