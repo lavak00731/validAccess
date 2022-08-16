@@ -257,11 +257,14 @@ class validAccess {
                                 this.showErrorMsg(elemToValidate, 'Stepmismatch');
                                 this.eventGiver(elemToValidate);
                                 break;
-                            case "rangeUnderFlow":
-                        
+                            case "rangeUnderflow":
+                                this.showErrorMsg(elemToValidate, 'Min');
+                                this.eventGiver(elemToValidate);
                                 break;
-                            case "rangeOverFlow":
-                            
+                            case "rangeOverflow":
+                                console.log('over flow')
+                                this.showErrorMsg(elemToValidate, 'Max');
+                                this.eventGiver(elemToValidate);
                                 break;
                             case "patternMismatch":
                                 this.showErrorMsg(elemToValidate, 'Pattern');

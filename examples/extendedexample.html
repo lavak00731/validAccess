@@ -64,6 +64,16 @@
                         <input type="number" name="step" id="step" required aria-invalid="false" min="2"  data-validA-required="step-required" data-validA-stepmismatch="step-error" step="2">
                     </div>
                     <div class="field-wrapper">
+                        <label for="night">How many hours do you sleep minimum per night?</label>
+                        <input type="number" name="night" id="night" required aria-invalid="false" min="5" aria-describedby="night-description" data-validA-required="min-required" data-validA-min="min-error">
+                        <p id="min-description">It is considered a minimum of 5 hours per night of sleeping</p>
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="maxnight">How many hours do you sleep maximum per night?</label>
+                        <input type="number" name="maxnight" id="maxnight" required aria-invalid="false" max="15" aria-describedby="maxnight-description" data-validA-required="max-required" data-validA-max="max-error">
+                        <p id="night-description">It is considered a maximum of 15 hours per night of sleeping</p>
+                    </div>
+                    <div class="field-wrapper">
                         <label for="cardinal">What is your favorite cardinal point?</label>
                         <select name="cardinal" id="cardinal" required aria-invalid="false" data-validA-required="cardinal-error">
                             <option value="">Select a Cardinal Point</option>
