@@ -130,6 +130,12 @@ class validAccess {
             }
         }        
     }
+    showOrHIdeDependant(dependant, isHidden) {
+        if(isHidden) {
+            document.querySelector('#'+dependant).removeAttribute('hidden')
+        }
+    }
+
     //show error message
     showErrorMsg(field, validation) {
         if(field.dataset['valida'+validation]) {
@@ -144,7 +150,7 @@ class validAccess {
                 //Radio Buttons and checkboxes error msg is placed at the fieldset bottom
                 if(field.type === 'radio' || field.type === 'checkbox') {
                     const fieldWrapper =  field.closest('fieldset');
-                    fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate);               
+                    fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate);                                 
                  } else {
                     //other form fields, error msgs are inserted right after the element               
                      field.parentElement.insertAdjacentHTML('beforeend', errorMsgTemplate);                                
@@ -237,46 +243,46 @@ class validAccess {
                     if(validationStatus[validProp]) {
                         switch (validProp) {
                             case "valueMissing":
-                                this.showErrorMsg(elemToValidate, 'Required');
-                                this.eventGiver(elemToValidate);
+                                this.showErrorMsg(elemToValidate, 'Required');                                
                                 break;
                             case "typeMismatch":
                                 this.showErrorMsg(elemToValidate, 'Email');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             case "tooShort":
                                 this.showErrorMsg(elemToValidate, 'Minlength');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             case "tooLong":
                                 //in some browsers ui it does not trigger since the characters amount is cut
                                 this.showErrorMsg(elemToValidate, 'Maxlength');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             case "stepMismatch":
                                 this.showErrorMsg(elemToValidate, 'Stepmismatch');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             case "rangeUnderflow":
                                 this.showErrorMsg(elemToValidate, 'Min');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             case "rangeOverflow":
                                 console.log('over flow')
                                 this.showErrorMsg(elemToValidate, 'Max');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             case "patternMismatch":
                                 this.showErrorMsg(elemToValidate, 'Pattern');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             case "badInput":
                                 this.showErrorMsg(elemToValidate, 'Badinput');
-                                this.eventGiver(elemToValidate);
+                                //this.eventGiver(elemToValidate);
                                 break;
                             default:
                                 break;
                         }
+                        this.eventGiver(elemToValidate);
                     }
                 }
             }
