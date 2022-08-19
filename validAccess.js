@@ -64,6 +64,10 @@ class validAccess {
             //waiting for user to make a click on submit button
             //using click event since Submit does not aloud show custom messages           
             this.formElem.querySelector('[type="submit"]').addEventListener('click', this.#validateForm.bind(this));
+            //set dependency fields events
+            this.formElem.querySelectorAll('[type="radio"], [type="checkbox"]').forEach((field)=>{
+                field.addEventListener('change', this.showOrHIdeDependant.bind(this));
+            })
         });
     }
     //checks if the element is visible
@@ -130,10 +134,27 @@ class validAccess {
             }
         }        
     }
-    showOrHIdeDependant(dependant, isHidden) {
-        if(isHidden) {
-            document.querySelector('#'+dependant).removeAttribute('hidden')
+    
+    //shows or hides dependant field
+    showOrHIdeDependant(event) {
+        //if the event target has the control of the dependant field
+        if(event.target.hasAttribute('aria-controls')) {
+            //get id of dependant field
+            let target = event.target.getAttribute('aria-controls');
+            //show dependant field
+            this.formElem.querySelector('#'+target).removeAttribute('hidden');
+        } else {
+            //get the attribute name
+            let nameAttr = event.target.getAttribute('name');
+            //if the element with attribute name in the group has a dependant field 
+            if(this.formElem.querySelector('[name="'+nameAttr+'"][aria-controls]')) {
+                //select dependant field id
+                const dependantID = this.formElem.querySelector('[name="'+nameAttr+'"][aria-controls]').getAttribute('aria-controls');
+                //hide dependant field
+                this.formElem.querySelector('#'+dependantID).setAttribute('hidden', true);
+            }
         }
+        
     }
 
     //show error message
@@ -247,37 +268,29 @@ class validAccess {
                                 break;
                             case "typeMismatch":
                                 this.showErrorMsg(elemToValidate, 'Email');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             case "tooShort":
                                 this.showErrorMsg(elemToValidate, 'Minlength');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             case "tooLong":
                                 //in some browsers ui it does not trigger since the characters amount is cut
                                 this.showErrorMsg(elemToValidate, 'Maxlength');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             case "stepMismatch":
                                 this.showErrorMsg(elemToValidate, 'Stepmismatch');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             case "rangeUnderflow":
                                 this.showErrorMsg(elemToValidate, 'Min');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             case "rangeOverflow":
                                 console.log('over flow')
                                 this.showErrorMsg(elemToValidate, 'Max');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             case "patternMismatch":
                                 this.showErrorMsg(elemToValidate, 'Pattern');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             case "badInput":
                                 this.showErrorMsg(elemToValidate, 'Badinput');
-                                //this.eventGiver(elemToValidate);
                                 break;
                             default:
                                 break;
