@@ -110,11 +110,43 @@ form {
     padding: 1rem;
 }
 :where(input[type="text"],input[type="email"],input[type="number"],input[type="tel"],
-input[type="password"], textarea, select) {
+input[type="password"], textarea, select, input[type="range"]) {
     border: 2px solid var(--main-color);
     padding: 0.5rem 0.5rem 0.5rem 3rem;
     border-radius: 0.3rem;
     margin-bottom: 1rem;
+}
+             /***** Track Styles *****/
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--focus-color);
+  height: 0.5rem;
+}
+
+/******** Firefox ********/
+input[type="range"]::-moz-range-track {
+  background: var(--focus-color);
+  height: 0.5rem;
+}
+/***** Thumb Styles *****/
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-top: -12px; /* Centers thumb on the track */
+    background-color: var(--background-color);
+    height: 2rem;
+    width: 1rem; 
+    border: 1px solid var(--main-color);
+ }
+/***** Firefox *****/
+input[type="range"]::-moz-range-thumb {
+    border: none; /*Removes extra border that FF applies*/
+    border-radius: 0; /*Removes default border-radius that FF applies*/
+    background-color: var(--background-color);
+    height: 2rem;
+    width: 1rem;
+    border: 1px solid var(--main-color);
 }
 select {
     padding-right: 2rem;

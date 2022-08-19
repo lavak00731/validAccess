@@ -21,7 +21,7 @@ async function validateErrorMsgSource(url) {
     
 }
 
-class validAccess {
+class ValidAccess {
     constructor({
         formId = isformIdDefined(),
         url = isParameterDefined('url'),
@@ -63,11 +63,11 @@ class validAccess {
             this.formElem.querySelector('[role="banner"]').classList.add(this.formBannerClass);
             //waiting for user to make a click on submit button
             //using click event since Submit does not aloud show custom messages           
-            this.formElem.querySelector('[type="submit"]').addEventListener('click', this.#validateForm.bind(this));
+            this.formElem.querySelector('[type="submit"]').addEventListener('click', e=> this.#validateForm(e));
             //set dependency fields events
             this.formElem.querySelectorAll('[type="radio"], [type="checkbox"]').forEach((field)=>{
-                field.addEventListener('change', this.showOrHIdeDependant.bind(this));
-            })
+                field.addEventListener('change', e=> this.showOrHIdeDependant(e));
+            });
         });
     }
     //checks if the element is visible
@@ -88,17 +88,12 @@ class validAccess {
     eventGiver(elem) {
         if(!elem.dataset.validaEventAdded) {
             elem.dataset.validaEventAdded = "";
-            let that = this;
             switch (elem.nodeName) {
                 case "TEXTAREA":
-                    elem.addEventListener('input', function(){
-                        that.validateInput(elem);
-                    });
+                    elem.addEventListener('input', ()=>this.validateInput(elem));
                     break;
                 case "SELECT":
-                    elem.addEventListener('change', function(){
-                        that.validateInput(elem)
-                    });
+                    elem.addEventListener('change', ()=>this.validateInput(elem));
                     break;
                 case "INPUT":
                     switch(elem.getAttribute('type')) {
@@ -108,9 +103,7 @@ class validAccess {
                         case "email":
                         case "url":
                         case "password":
-                            elem.addEventListener('input', function(){
-                                that.validateInput(elem);
-                            });
+                            elem.addEventListener('input', ()=>this.validateInput(elem));
                             break;
                         case "date":
                         case "file":
@@ -122,12 +115,9 @@ class validAccess {
                         case "checkbox":
                         case "radio":
                         case "color":
-                            elem.addEventListener('change', function(){
-                                that.validateInput(elem)
-                            });
+                            elem.addEventListener('change', ()=>this.validateInput(elem));
                             break;
-                    }
-                    
+                    }                    
                     break;                
                 default:                    
                     break;
@@ -209,10 +199,10 @@ class validAccess {
             //checks if the feature is not null or empty
             if(featureToRemove) {
                 //if the element which is refered exists
-                if(document.querySelector('#'+featureToRemove)) {
+                if(this.formElem.querySelector('#'+featureToRemove)) {
                     //check if that element has the error field class, then erase it
-                    if(document.querySelector('#'+featureToRemove).classList.contains(this.formFieldError)) {
-                        document.querySelector('#'+featureToRemove).parentElement.removeChild(document.querySelector('#'+featureToRemove));
+                    if(this.formElem.querySelector('#'+featureToRemove).classList.contains(this.formFieldError)) {
+                        this.formElem.querySelector('#'+featureToRemove).parentElement.removeChild(this.formElem.querySelector('#'+featureToRemove));
                         //remove aria-describedby
                         elem.removeAttribute('aria-describedby')
                         //but if there was a helping text put it back
@@ -344,7 +334,7 @@ class validAccess {
         //inserting img and text to the template
         template.append(imgWrapper, loadingText);
         //checks if there is no a style tag with data valid style in place, if it will be inserted
-        if(!document.querySelector('[data-valid-style="true"]')) {
+        if(!this.formElem.querySelector('[data-valid-style="true"]')) {
             this.styleInjector();
         }
         //including template to the body element
