@@ -114,6 +114,7 @@ input[type="password"], textarea, select) {
     border: 2px solid var(--main-color);
     padding: 0.5rem 0.5rem 0.5rem 3rem;
     border-radius: 0.3rem;
+    margin-bottom: 1rem;
 }
 select {
     padding-right: 2rem;
@@ -124,7 +125,7 @@ select {
 }
 label, legend {
     display: block;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.5rem;
     font-weight: 800;
 }
 .field-wrapper {
