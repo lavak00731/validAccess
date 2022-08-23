@@ -245,7 +245,7 @@ select[aria-invalid="true"] {
 .error {
     color: var(--alert-color);
 }
-[role="banner"] {
+[role="alert"] {
     background: var(--alert-color) no-repeat;
     color: var(--background-color);
     
