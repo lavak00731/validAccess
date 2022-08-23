@@ -15,6 +15,14 @@
                 {"type":"Badinput",
                 "msg": "Please write a number"}                
             ],
+            "birthdate": [
+                {"type":"Required",
+                "msg":"This field is required"},
+                {"type":"Badinput",
+                "msg": "Please include a hour and minutes"},
+                {"type": "Min",
+                "msg":"The minimum date must be 100 years ago"}
+            ],            
             "email": [
                 {"type":"Required",
                 "msg":"This field is required"},
