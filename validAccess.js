@@ -60,7 +60,7 @@ class ValidAccess {
                 this.formMsgs = await validateErrorMsgSource(this.msgUrl); 
             }
             //add the custom class to the banner
-            this.formElem.querySelector('[role="banner"]').classList.add(this.formBannerClass);
+            this.formElem.querySelector('[role="alert"]').classList.add(this.formBannerClass);
             //waiting for user to make a click on submit button
             //using click event since Submit does not aloud show custom messages           
             this.formElem.querySelector('[type="submit"]').addEventListener('click', e=> this.#validateForm(e));
@@ -273,7 +273,6 @@ class ValidAccess {
                                 this.showErrorMsg(elemToValidate, 'Min');
                                 break;
                             case "rangeOverflow":
-                                console.log('over flow')
                                 this.showErrorMsg(elemToValidate, 'Max');
                                 break;
                             case "patternMismatch":
