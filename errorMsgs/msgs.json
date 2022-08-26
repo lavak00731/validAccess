@@ -18,8 +18,8 @@
             "birthdate": [
                 {"type":"Required",
                 "msg":"This field is required"},
-                {"type":"Badinput",
-                "msg": "Please include a hour and minutes"},
+                {"type": "Badinput",
+                "msg":"Please fill the missing information in the field"},
                 {"type": "Min",
                 "msg":"The minimum date must be 100 years ago"}
             ],            
@@ -28,6 +28,12 @@
                 "msg":"This field is required"},
                 {"type":"Email",
                 "msg":"This field is required"}                  
+            ],
+            "wakeup": [
+                {"type":"Required",
+                "msg":"This field is required"},
+                {"type": "Badinput",
+                "msg":"Please fill the missing information in the field"}
             ],
             "pet": [
                 {"type":"Required",

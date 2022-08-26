@@ -80,7 +80,7 @@ class ValidAccess {
             let msgObj = this.formMsgs[document.documentElement.lang]['validation'][elemName].filter((valid) => (valid.type === validation) ? valid.msg : false);      
             return msgObj[0].msg;
         } catch {
-            throw new Error('no message set to element '+elemName+' in validation '+validation);
+            throw new Error('No message set to element '+elemName+' in validation '+validation);
         }
         
     }
@@ -155,7 +155,7 @@ class ValidAccess {
             //get id for error message
             const valMsgId = field.dataset['valida'+validation];
             //set the template of error paragraph
-            const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(`${field.name}`,validation)}</p>`;
+            const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(`${field.name}`,validation)}</p>`;            
             //checks if the element with error msg is not already in place
             if(!this.formElem.querySelector('#'+field.dataset['valida'+validation])){
                 //Radio Buttons and checkboxes error msg is placed at the fieldset bottom
@@ -176,7 +176,7 @@ class ValidAccess {
                 field.setAttribute('aria-describedby', valMsgId);
             }
         } else {
-            throw new Error(`There is no validation message for ${validation} setted for form field #${field.id}`);
+            throw new Error(`There is no data-validA attribute set for ${field.name} for validation type ${validation}`);            
         }
     }
     checkIfAriaDescribedby(elem) {
@@ -254,7 +254,21 @@ class ValidAccess {
                     if(validationStatus[validProp]) {
                         switch (validProp) {
                             case "valueMissing":
-                                this.showErrorMsg(elemToValidate, 'Required');                                
+                            case "badInput":
+                                //if both validations takes place, bad Input should be shown
+                                //since datetime local and time inputs when they are not fullfilled 
+                                //the error is both but they are partially filled
+                                if(elemToValidate.validity.valueMissing && elemToValidate.validity.badInput){
+                                    this.showErrorMsg(elemToValidate, 'Badinput');
+                                } else {
+                                    //Required Only validation
+                                    if(elemToValidate.validity.valueMissing) {
+                                        this.showErrorMsg(elemToValidate, 'Required');
+                                    } else {
+                                        //Bad Input Only validation
+                                        this.showErrorMsg(elemToValidate, 'Badinput');
+                                    }
+                                }                                                                
                                 break;
                             case "typeMismatch":
                                 this.showErrorMsg(elemToValidate, 'Email');
@@ -277,9 +291,6 @@ class ValidAccess {
                                 break;
                             case "patternMismatch":
                                 this.showErrorMsg(elemToValidate, 'Pattern');
-                                break;
-                            case "badInput":
-                                this.showErrorMsg(elemToValidate, 'Badinput');
                                 break;
                             default:
                                 break;
@@ -376,7 +387,7 @@ class ValidAccess {
     #validateForm(e) {
         if(!!e.currentTarget) {
             e.preventDefault();
-            this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
+            this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="time"],input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
             this.formChildrenInput.forEach((inputElem)=>{ this.validateInput(inputElem) });
             if(this.isValidForm()) {
                 //checks if it is an multistep

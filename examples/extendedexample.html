@@ -32,11 +32,15 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="birthdate">Birth Date</label>
-                        <input type="datetime-local" name="birthdate" id="birthdate" min="1922-01-01T00:00" required aria-invalid="false" data-validA-required="birthdate-error" data-validA-badinput="birthdate-bad-error" data-validA-min="birthdate-min-error">
+                        <input type="datetime-local" name="birthdate" id="birthdate" min="1922-01-01T00:00" required aria-invalid="false" data-validA-required="birthdate-error" data-validA-min="birthdate-min-error" data-validA-badinput="birthdate-badInput-error">
                     </div>
                     <div class="field-wrapper">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" required aria-invalid="false" data-validA-required="email-error" data-validA-email="email-badinput-error">               
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="wakeup">What is your wake-up hour?</label>
+                        <input type="time" name="wakeup" id="wakeup" required aria-invalid="false" data-validA-required="wakeup-error" data-validA-badinput="wakeup-badInput-error">               
                     </div>
                     <fieldset>
                         <legend>Do you have a pet?</legend>
