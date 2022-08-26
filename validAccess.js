@@ -290,7 +290,7 @@ class ValidAccess {
                                 this.showErrorMsg(elemToValidate, 'Max');
                                 break;
                             case "patternMismatch":
-                                this.showErrorMsg(elemToValidate, 'Pattern');
+                                this.showErrorMsg(elemToValidate, 'Patternmismatch');
                                 break;
                             default:
                                 break;

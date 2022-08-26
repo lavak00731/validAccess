@@ -55,6 +55,12 @@
                 {"type": "Minlength",
                 "msg":"Please at least 10 characters are needed"}
             ],
+            "pass": [
+                {"type": "Required",
+                "msg":"This field is required"},
+                {"type": "Patternmismatch",
+                "msg":"The password does not match the minimum requirements"}
+            ],
             "step": [
                 {"type": "Required",
                 "msg":"This field is required"}, 
