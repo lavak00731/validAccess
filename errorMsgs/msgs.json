@@ -26,7 +26,7 @@
             "email": [
                 {"type":"Required",
                 "msg":"This field is required"},
-                {"type":"Email",
+                {"type":"Typemismatch",
                 "msg":"This field is required"}                  
             ],
             "wakeup": [
@@ -34,6 +34,12 @@
                 "msg":"This field is required"},
                 {"type": "Badinput",
                 "msg":"Please fill the missing information in the field"}
+            ],
+            "site": [
+                {"type":"Required",
+                "msg":"This field is required"},
+                {"type": "Typemismatch",
+                "msg":"Please fill the field with a proper url"}
             ],
             "pet": [
                 {"type":"Required",

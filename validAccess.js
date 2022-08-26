@@ -271,7 +271,7 @@ class ValidAccess {
                                 }                                                                
                                 break;
                             case "typeMismatch":
-                                this.showErrorMsg(elemToValidate, 'Email');
+                                this.showErrorMsg(elemToValidate, 'Typemismatch');
                                 break;
                             case "tooShort":
                                 this.showErrorMsg(elemToValidate, 'Minlength');
@@ -387,7 +387,7 @@ class ValidAccess {
     #validateForm(e) {
         if(!!e.currentTarget) {
             e.preventDefault();
-            this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="time"],input[type="date"], input[type="datetime-local"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
+            this.formChildrenInput = this.formElem.querySelectorAll('input[type="tel"], input[type="text"], input[type="number"], input[type="email"], input[type="time"],input[type="date"], input[type="datetime-local"], input[type="date"], input[type="url"], input[type="password"], input[type="radio"], input[type="checkbox"], input[type="color"], select, textarea');
             this.formChildrenInput.forEach((inputElem)=>{ this.validateInput(inputElem) });
             if(this.isValidForm()) {
                 //checks if it is an multistep

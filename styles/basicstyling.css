@@ -111,7 +111,7 @@ form {
 }
 :where(input[type="text"],input[type="email"],input[type="number"],input[type="tel"],
 input[type="password"], textarea, select, input[type="range"], input[type="datetime-local"], 
-input[type="time"]) {
+input[type="time"], input[type="date"], input[type="url"], input[type="password"]) {
     border: 2px solid var(--main-color);
     padding: 0.5rem 0.5rem 0.5rem 3rem;
     border-radius: 0.3rem;
