@@ -149,15 +149,15 @@ class ValidAccess {
 
     //show error message
     showErrorMsg(field, validation) {
-        if(field.dataset['valida'+validation]) {
+        if(this.errorMsgs(`${field.name}`,validation)) {
             //set field as aria-invalid true
             field.setAttribute('aria-invalid', true);
-            //get id for error message
-            const valMsgId = field.dataset['valida'+validation];
+            //set error id
+            const valMsgId = validation+"-"+field.name;
             //set the template of error paragraph
-            const errorMsgTemplate = `<p  id="${field.dataset['valida'+validation]}" class="${this.formFieldError}">${this.errorMsgs(`${field.name}`,validation)}</p>`;            
+            const errorMsgTemplate = `<p  id="${valMsgId}" class="${this.formFieldError}">${this.errorMsgs(`${field.name}`,validation)}</p>`;            
             //checks if the element with error msg is not already in place
-            if(!this.formElem.querySelector('#'+field.dataset['valida'+validation])){
+            if(!this.formElem.querySelector('#'+valMsgId)){
                 //Radio Buttons and checkboxes error msg is placed at the fieldset bottom
                 if(field.type === 'radio' || field.type === 'checkbox') {
                     const fieldWrapper =  field.closest('fieldset');
@@ -191,36 +191,34 @@ class ValidAccess {
         //set aria-invalid to false
         elem.setAttribute('aria-invalid', false);
         //all datasets in the element
-        let elemErrorMsg = elem.dataset;
-        //loop throught all datasets
-        for (const errorKey in elemErrorMsg) {
-            //capture each data
-            let featureToRemove = elemErrorMsg[errorKey];
-            //checks if the feature is not null or empty
-            if(featureToRemove) {
+        const elemErrorMsg = elem.getAttribute('aria-describedby');
+        //if there are aria-describedby msg
+        if(elemErrorMsg) {
+            //split in white space the aria-describedby attribute
+            const ariaMsgGroup = elemErrorMsg.split(' ')
+            //loop throught all datasets
+            for (const errorId of ariaMsgGroup) {
                 //if the element which is refered exists
-                if(this.formElem.querySelector('#'+featureToRemove)) {
-                    //check if that element has the error field class, then erase it
-                    if(this.formElem.querySelector('#'+featureToRemove).classList.contains(this.formFieldError)) {
-                        this.formElem.querySelector('#'+featureToRemove).parentElement.removeChild(this.formElem.querySelector('#'+featureToRemove));
+                //check if that element has the error field class, then erase it
+                if(this.formElem.querySelector('#'+errorId) && this.formElem.querySelector('#'+errorId).classList.contains(this.formFieldError)) {
+                        this.formElem.querySelector('#'+errorId).parentElement.removeChild(this.formElem.querySelector('#'+errorId));
                         //remove aria-describedby
                         elem.removeAttribute('aria-describedby')
                         //but if there was a helping text put it back
                         if(this.checkIfAriaDescribedby(elem)){
                             elem.setAttribute('aria-describedby', elem.dataset.validaAriaDescribed);
                         }
-                    }
+
                 }
             }
-                        
-        }
-        //remove attribute aria-describedby from element
-        elem.removeAttribute('aria-describedby');
-        //in case form field has a help text
-        //it is checked if it had one and then restore it
-        if(this.checkIfAriaDescribedby(elem)) {
-            elem.setAttribute('aria-describedby', elem.dataset.validaAriaDescribed)
-        }
+            //remove attribute aria-describedby from element
+            elem.removeAttribute('aria-describedby');
+            //in case form field has a help text
+            //it is checked if it had one and then restore it
+            if(this.checkIfAriaDescribedby(elem)) {
+                elem.setAttribute('aria-describedby', elem.dataset.validaAriaDescribed)
+            }
+        }        
     }    
     //add data to element with aria-describedby
     backUpHelpText(elem) {

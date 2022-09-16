@@ -19,46 +19,46 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" required aria-invalid="false" data-validA-required="name-error">                        
+                        <input type="text" name="name" id="name" required aria-invalid="false">                        
                     </div>
                     <div class="field-wrapper">
                         <label for="lastname">Last Name</label>
-                        <input type="text" name="lastname" id="lastname" required aria-invalid="false" data-validA-required="lastname-error">                       
+                        <input type="text" name="lastname" id="lastname" required aria-invalid="false">                       
                     </div>
                     <div class="field-wrapper">
                         <label for="age">Age</label>
-                        <input type="number" name="age" id="age" aria-describedby="sayTruth" required aria-invalid="false" data-validA-required="age-error" data-validA-badinput="age-badinput-error">
+                        <input type="number" name="age" id="age" aria-describedby="sayTruth" required aria-invalid="false">
                         <p id="sayTruth">Please say the truth</p>                        
                     </div>
                     <div class="field-wrapper">
                         <label for="birthdate">Birth Date</label>
-                        <input type="datetime-local" name="birthdate" id="birthdate" min="1922-01-01T00:00" required aria-invalid="false" data-validA-required="birthdate-error" data-validA-min="birthdate-min-error" data-validA-badinput="birthdate-badInput-error">
+                        <input type="datetime-local" name="birthdate" id="birthdate" min="1922-01-01T00:00" required aria-invalid="false">
                     </div>
                     <div class="field-wrapper">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required aria-invalid="false" data-validA-required="email-error" data-validA-typemismatch="email-badinput-error">               
+                        <input type="email" name="email" id="email" required aria-invalid="false">               
                     </div>
                     <div class="field-wrapper">
                         <label for="wakeup">What is your favorite wake-up hour?</label>
-                        <input type="time" name="wakeup" id="wakeup" required aria-invalid="false" data-validA-required="wakeup-error" data-validA-badinput="wakeup-badInput-error">               
+                        <input type="time" name="wakeup" id="wakeup" required aria-invalid="false">               
                     </div>
                     <div class="field-wrapper">
                         <label for="site">What is your favorite website?</label>
-                        <input type="url" name="site" id="site" required aria-invalid="false" data-validA-required="url-error" data-validA-typemismatch="url-badInput-error">               
+                        <input type="url" name="site" id="site" required aria-invalid="false">               
                     </div>
                     <fieldset>
                         <legend>Do you have a pet?</legend>
                         <div class="field-wrapper">
-                            <input type="radio" name="pet" id="yes" required aria-invalid="false" data-validA-required="pet-error" aria-controls="petWrapper" value="petyes">
+                            <input type="radio" name="pet" id="yes" required aria-invalid="false" aria-controls="petWrapper" value="petyes">
                             <label for="yes">Yes</label>
-                            <input type="radio" name="pet" id="no" required aria-invalid="false" data-validA-required="pet-error" value="petno">
+                            <input type="radio" name="pet" id="no" required aria-invalid="false" value="petno">
                             <label for="no">No</label>
                         </div>
                     </fieldset>
                     <div id="petWrapper" hidden>
                         <div class="field-wrapper">
                             <label for="pettype">So you have a pet... What is it?</label>
-                            <select name="pettype" id="pettype" required aria-invalid="false" data-validA-required="pettype-error">
+                            <select name="pettype" id="pettype" required aria-invalid="false">
                                 <option value="">No pets?</option>
                                 <option value="dog">Dog</option>
                                 <option value="cat">Cat</option>
@@ -68,38 +68,38 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="hero">Your Favorite Super Hero</label>
-                        <input type="text" name="hero" id="hero" required aria-invalid="false" aria-describedby="min-description" data-validA-required="minlength-required" data-validA-minlength="minlength-error" minlength="10">
+                        <input type="text" name="hero" id="hero" required aria-invalid="false" aria-describedby="min-description" minlength="10">
                         <p id="min-description">A minimum quantity of 10 letters are needed</p>
                     </div>
                     <div class="field-wrapper">
                         <label for="pass">Please, set a password</label>
-                        <input type="password" name="pass" id="pass" required aria-invalid="false" aria-describedby="min-description" data-validA-required="pass-required" data-validA-patternmismatch="pattern-min-error" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$">
+                        <input type="password" name="pass" id="pass" required aria-invalid="false" aria-describedby="min-description" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$">
                         <p id="min-description"> 	
                             Password requires at least 1 lower case character, 1 upper case character, 1 number, 1 special character and must be at least 8 characters</p>
 
                     </div>
                     <div class="field-wrapper">
                         <label for="step">What is your favorite number from the table of 2?</label>
-                        <input type="number" name="step" id="step" required aria-invalid="false" min="2"  data-validA-required="step-required" data-validA-stepmismatch="step-error" step="2">
+                        <input type="number" name="step" id="step" required aria-invalid="false" min="2" step="2">
                     </div>
                     <div class="field-wrapper">
                         <label for="night">How many hours do you sleep minimum per night?</label>
-                        <input type="number" name="night" id="night" required aria-invalid="false" min="5" aria-describedby="night-description" data-validA-required="min-required" data-validA-min="min-error">
+                        <input type="number" name="night" id="night" required aria-invalid="false" min="5" aria-describedby="night-description">
                         <p id="night-description">It is considered a minimum of 5 hours per night of sleeping</p>
                     </div>
                     <div class="field-wrapper">
                         <label for="maxnight">How many hours do you sleep maximum per night?</label>
-                        <input type="number" name="maxnight" id="maxnight" required aria-invalid="false" max="15" aria-describedby="maxnight-description" data-validA-required="max-required" data-validA-max="max-error">
+                        <input type="number" name="maxnight" id="maxnight" required aria-invalid="false" max="15" aria-describedby="maxnight-description">
                         <p id="maxnight-description">It is considered a maximum of 15 hours per night of sleeping</p>
                     </div>
                     <div class="field-wrapper">
                         <label for="rate">Rate your last vacation (optional)</label>
-                        <input type="range" name="rate" id="rate" aria-invalid="false" min="1" max="10" step="1" aria-describedby="rate-description" value="1">
+                        <input type="range" name="rate" id="rate" min="1" max="10" step="1" aria-describedby="rate-description" value="1">
                         <p id="rate-description">Please, rate your last vacation from 1 to 10.</p>
                     </div>
                     <div class="field-wrapper">
                         <label for="cardinal">What is your favorite cardinal point?</label>
-                        <select name="cardinal" id="cardinal" required aria-invalid="false" data-validA-required="cardinal-error">
+                        <select name="cardinal" id="cardinal" required aria-invalid="false">
                             <option value="">Select a Cardinal Point</option>
                             <option value="north">North</option>
                             <option value="east">East</option>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="comment">Any Comment?</label>
-                        <textarea name="comment" id="comment" cols="30" rows="10" aria-describedby="max-characters" required  data-validA-required="comment-error" maxlength="200" data-validA-maxlength="maxlength-error"></textarea>
+                        <textarea name="comment" id="comment" cols="30" rows="10" aria-describedby="max-characters" required maxlength="200"></textarea>
                         <p id="max-characters">A maximum quantity of 200 letters are needed</p>
                     </div>
                     <div class="field-wrapper">
