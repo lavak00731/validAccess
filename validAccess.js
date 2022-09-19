@@ -87,7 +87,7 @@ class ValidAccess {
     //adding events per field after try submiting
     eventGiver(elem) {
         if(!elem.dataset.validaEventAdded) {
-            elem.dataset.validaEventAdded = "";
+            elem.dataset.validaEventAdded = "true";
             switch (elem.nodeName) {
                 case "TEXTAREA":
                     elem.addEventListener('input', ()=>this.validateInput(elem));

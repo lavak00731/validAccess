@@ -64,18 +64,24 @@
             "step": [
                 {"type": "Required",
                 "msg":"This field is required"}, 
+                {"type": "Badinput",
+                "msg":"This field must be filled with a number based from 2"}, 
                 {"type": "Stepmismatch",
                 "msg":"This field must be filled with a number based from 2 on"}
             ],
             "night": [
                 {"type": "Required",
                 "msg":"This field is required"}, 
+                {"type": "Badinput",
+                "msg":"This field must be filled with a number"}, 
                 {"type": "Min",
                 "msg":"This field must be filled with a minimum number of 5 hours"}
             ],
             "maxnight": [
                 {"type": "Required",
-                "msg":"This field is required"}, 
+                "msg":"This field is required"},
+                {"type": "Badinput",
+                "msg":"This field must be filled with a number"},  
                 {"type": "Max",
                 "msg":"This field must be filled with a maximum number of 15 hours"}
             ],
