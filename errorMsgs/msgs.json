@@ -3,7 +3,9 @@
         "validation": {
             "name": [
                 {"type":"Required",
-                "msg":"This field is required"}
+                "msg":"This field is required"},
+                {"type":"validName",
+                "msg": "Only Ezequiel is accepted as name"}
             ],
             "lastname": [
                 {"type":"Required",

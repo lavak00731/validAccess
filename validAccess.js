@@ -292,11 +292,21 @@ class ValidAccess {
                                 break;
                             default:
                                 break;
-                        }
-                        this.eventGiver(elemToValidate);
+                        }                        
                     }
                 }
+            } else {
+                //First common validation
+                //then custom one
+                if(elemToValidate.dataset.validaVfunc) {
+                    const validFunct = elemToValidate.dataset.validaVfunc;
+                    if(window[validFunct](elemToValidate.value)) {
+                        this.showErrorMsg(elemToValidate, validFunct) 
+                    }  
+                }                              
             }
+            //adding events to each input field
+            this.eventGiver(elemToValidate);
         }
     }
     styleInjector() {
