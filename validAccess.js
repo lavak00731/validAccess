@@ -240,6 +240,15 @@ class ValidAccess {
             return true;
         }
     }
+    //check if the element with data-valida-target has the same value than its target
+    validaTargetDoubleValueCheck(elemToValidate, elemValue, targetValue) {
+        if(elemValue !== targetValue) {
+            this.showErrorMsg(elemToValidate, 'Target') 
+            return true;
+        } else {
+            return false;
+        }
+    }
     //validates each form input
     validateInput(elemToValidate) {
         const validationStatus = elemToValidate.validity;
@@ -297,13 +306,22 @@ class ValidAccess {
                 }
             } else {
                 //First common validation
-                //then custom one
-                if(elemToValidate.dataset.validaVfunc) {
-                    const validFunct = elemToValidate.dataset.validaVfunc;
-                    if(window[validFunct](elemToValidate.value)) {
-                        this.showErrorMsg(elemToValidate, validFunct) 
-                    }  
-                }                              
+                //Built in Validations and Custom Validation               
+                for (const dataKey in elemToValidate.dataset) {
+                    switch (dataKey) {
+                        //Custom Validation
+                        case 'validaVfunc':
+                            const validFunct = elemToValidate.dataset.validaVfunc;
+                            if(window[validFunct](elemToValidate.value)) {
+                                this.showErrorMsg(elemToValidate, validFunct) 
+                            } 
+                          break;
+                        case 'validaTarget':
+                            this.validaTargetDoubleValueCheck(elemToValidate, elemToValidate.value, document.querySelector('#'+elemToValidate.dataset.validaTarget).value)
+                        default:
+                          break;
+                      }
+                }               
             }
             //adding events to each input field
             this.eventGiver(elemToValidate);

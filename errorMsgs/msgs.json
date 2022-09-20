@@ -63,6 +63,15 @@
                 {"type": "Patternmismatch",
                 "msg":"The password does not match the minimum requirements"}
             ],
+            "pass1": [
+                {"type": "Required",
+                "msg":"This field is required"},
+                {"type": "Patternmismatch",
+                "msg":"The password does not match the minimum requirements"},
+                {"type": "Target",
+                "msg": "This value of this field does not match the previous one"}
+                
+            ],
             "step": [
                 {"type": "Required",
                 "msg":"This field is required"}, 
