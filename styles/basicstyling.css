@@ -106,6 +106,10 @@ h1 {
 h2 {
     font-size: 2rem;
 }
+main {
+    max-width: 980px;
+    margin: 0 auto;
+}
 form {
     padding: 1rem;
 }
