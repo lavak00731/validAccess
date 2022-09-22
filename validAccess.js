@@ -28,10 +28,10 @@ class ValidAccess {
         success = isParameterDefined('success'),
         error = isParameterDefined('error'),
         msgUrl = isParameterDefined('msgUrl'),
+        loadingImg = isParameterDefined('loadingImg'),
         bannerClass = 'alert-banner',
         loadingWrapper = 'loadingWrapper',
         isLoadingTextVisible = true,
-        loadingImg = isParameterDefined('loadingImg'),
         fieldError = 'error',
         isMultistep = false
     } = {}) {       
@@ -49,9 +49,9 @@ class ValidAccess {
         this.formElem = document.querySelector('#'+this.formId);
         this.formChildrenInput;
         //init function
+        console.log(this.isLoadingTextVisible);
         this.init();
-    } 
-   
+    }    
     init() {
         //DOM Ready
         document.addEventListener("DOMContentLoaded", async (event) => {
@@ -367,6 +367,9 @@ class ValidAccess {
         loadingText.append(this.formMsgs[document.documentElement.lang]['sending']);
         //setting tabIndex, 
         loadingText.setAttribute('tabIndex', '-1');
+        if(!this.isLoadingTextVisible) {
+            loadingText.style = "clip: rect(0 0 0 0); clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;"
+        }
         //inserting img and text to the template
         template.append(imgWrapper, loadingText);
         //checks if there is no a style tag with data valid style in place, if it will be inserted
@@ -389,7 +392,6 @@ class ValidAccess {
     sendingForm(formElem) {
         const formToSend = new FormData(formElem);
         this.showBckDrop();
-        
         fetch(this.url, {
             method: 'POST', // or 'PUT'
             headers: {
