@@ -49,7 +49,6 @@ class ValidAccess {
         this.formElem = document.querySelector('#'+this.formId);
         this.formChildrenInput;
         //init function
-        console.log(this.isLoadingTextVisible);
         this.init();
     }    
     init() {
