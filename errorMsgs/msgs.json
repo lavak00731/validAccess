@@ -105,6 +105,7 @@
                 "msg": "This field is required"}
             ]
         },
-        "sending": "Form is being sent..."       
+        "sending": "Form is being sent...",
+        "textcount": "{variable} characters left"       
     }
 }

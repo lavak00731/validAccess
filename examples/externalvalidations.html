@@ -35,8 +35,13 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="comment">Any Comment?</label>
-                        <textarea name="comment" id="comment" cols="30" rows="10" aria-describedby="max-characters" required maxlength="200"></textarea>
+                        <textarea name="comment" id="comment" cols="30" rows="10" data-valida-text-count="true" aria-describedby="max-characters" required maxlength="200"></textarea>
                         <p id="max-characters">A maximum quantity of 200 letters are needed</p>
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="comment1">Any Comment, we recommend to be short</label>
+                        <textarea name="comment1" id="comment1" cols="30" rows="10" data-valida-text-count="true" aria-describedby="max-characters1" required data-valida-max-text="200"></textarea>
+                        <p id="max-characters1">A recommended quantity of 200 letters are needed</p>
                     </div>
                     <div class="field-wrapper">
                         <button type="submit">Submit</button>

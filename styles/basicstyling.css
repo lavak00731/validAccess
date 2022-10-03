@@ -121,6 +121,10 @@ input[type="time"], input[type="date"], input[type="url"], input[type="password"
     border-radius: 0.3rem;
     margin-bottom: 1rem;
 }
+textarea {
+    white-space: break-spaces;
+    word-break: break-word;
+}
              /***** Track Styles *****/
 /***** Chrome, Safari, Opera, and Edge Chromium *****/
 input[type="range"]::-webkit-slider-runnable-track {
@@ -272,4 +276,7 @@ select[aria-invalid="true"] {
     background: var(--background-color);
     width: 20%;
     text-align: center;
+}
+.negativeAmount {
+    color: var(--alert-color);
 }

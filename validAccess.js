@@ -63,6 +63,15 @@ class ValidAccess {
             //waiting for user to make a click on submit button
             //using click event since Submit does not aloud show custom messages           
             this.formElem.querySelector('[type="submit"]').addEventListener('click', e=> this.#validateForm(e));
+            //check if textarea have data attribute in order to count characters
+            this.formElem.querySelectorAll('textarea').forEach((tarea)=>{                
+                if (tarea.dataset.validaTextCount === 'true') {
+                    //set text count
+                    this.setTextCount(tarea);
+                    //listen input event to count characters
+                    tarea.addEventListener('input', this.textCount.bind(this));
+                }
+            });
             //set dependency fields events
             this.formElem.querySelectorAll('[type="radio"], [type="checkbox"]').forEach((field)=>{
                 field.addEventListener('change', e=> this.showOrHIdeDependant(e));
@@ -80,8 +89,58 @@ class ValidAccess {
             return msgObj[0].msg;
         } catch {
             throw new Error('No message set to element '+elemName+' in validation '+validation);
+        }        
+    }
+    //adds or removes negativeAmount class
+    addOrRemoveNegativeClass (elem) {
+        let amountToBeShown = parseInt(elem.dataset.validaMaxText) - elem.value.length;
+        elem.parentElement.querySelector('.amountCh').textContent = amountToBeShown;
+        if(amountToBeShown < 0) {
+            elem.parentElement.querySelector('.amountCh').classList.add('negativeAmount');
+        } else {
+            elem.parentElement.querySelector('.amountCh').classList.remove('negativeAmount');
         }
-        
+    }
+    //set the structure below of a textarea for explaining the user 
+    //that there is a text limit
+    setTextCount (elem) {
+        const template = document.createElement('p');
+        template.classList.add('text-count');
+        template.setAttribute('aria-live', 'polite')
+        const countMsg = this.formMsgs[document.documentElement.lang]['textcount'];
+        let countElem;
+        //There are two possible approaches 
+        //One with a text limit
+        if( elem.hasAttribute('maxlength') ) {
+            countElem = elem.getAttribute('maxlength');
+        } else if ( elem.dataset.validaMaxText ) {
+            //The other one let the user type, but noticing  that he or she exceeded the 
+            //amount of characters
+            countElem = elem.dataset.validaMaxText;            
+        }
+        let dynamicMsg = countMsg.replace('{variable}', `<span class="amountCh">${parseInt(countElem) - elem.value.length}</span>`);
+        template.innerHTML = dynamicMsg;
+        elem.parentElement.appendChild(template);
+        if(elem.dataset.validaMaxText) {
+            this.addOrRemoveNegativeClass(elem);
+        }
+    }
+    textCount(event) {
+        if(event.target.dataset.validaTextCount) {
+            const tareaParent= event.target.parentElement
+            for (const child of tareaParent.children){
+                if(child.classList.contains('text-count')) {
+                    //with maxlength the text in most interfaces is going to stop user to type
+                    if(event.target.hasAttribute('maxlength')) {
+                        child.querySelector('.amountCh').textContent = parseInt(event.target.getAttribute('maxlength')) - event.target.value.length;
+                        //in other cases a suggested amount of text is asked
+                        //but the user can keep typing
+                    } else if(event.target.dataset.validaMaxText) {   
+                        this.addOrRemoveNegativeClass(event.target);                        
+                    }
+                }
+            }
+        }
     }
     //adding events per field after try submiting
     eventGiver(elem) {
