@@ -461,6 +461,7 @@ class ValidAccess {
         .then(data => {
             console.log('Success:', data);
             this.hideBckDrop();
+            this.formElem.reset();
             this.showFinalMsg(this.success);
         })
         .catch((error) => {
