@@ -374,6 +374,7 @@ class ValidAccess {
                                 this.showErrorMsg(elemToValidate, validFunct) 
                             } 
                           break;
+                        //Two identical values
                         case 'validaTarget':
                             this.validaTargetDoubleValueCheck(elemToValidate, elemToValidate.value, document.querySelector('#'+elemToValidate.dataset.validaTarget).value)
                         default:
