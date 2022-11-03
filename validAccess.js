@@ -301,7 +301,7 @@ class ValidAccess {
     //check if the element with data-valida-target has the same value than its target
     validaTargetDoubleValueCheck(elemToValidate, elemValue, targetValue) {
         if(elemValue !== targetValue) {
-            this.showErrorMsg(elemToValidate, 'Target') 
+            this.showErrorMsg(elemToValidate, 'target') 
             return true;
         } else {
             return false;
@@ -324,38 +324,38 @@ class ValidAccess {
                                 //since datetime local and time inputs when they are not fullfilled 
                                 //the error is both but they are partially filled
                                 if(elemToValidate.validity.valueMissing && elemToValidate.validity.badInput){
-                                    this.showErrorMsg(elemToValidate, 'Badinput');
+                                    this.showErrorMsg(elemToValidate, 'badinput');
                                 } else {
                                     //Required Only validation
                                     if(elemToValidate.validity.valueMissing) {
-                                        this.showErrorMsg(elemToValidate, 'Required');
+                                        this.showErrorMsg(elemToValidate, 'required');
                                     } else {
                                         //Bad Input Only validation
-                                        this.showErrorMsg(elemToValidate, 'Badinput');
+                                        this.showErrorMsg(elemToValidate, 'badinput');
                                     }
                                 }                                                                
                                 break;
                             case "typeMismatch":
-                                this.showErrorMsg(elemToValidate, 'Typemismatch');
+                                this.showErrorMsg(elemToValidate, 'typemismatch');
                                 break;
                             case "tooShort":
-                                this.showErrorMsg(elemToValidate, 'Minlength');
+                                this.showErrorMsg(elemToValidate, 'minlength');
                                 break;
                             case "tooLong":
                                 //in some browsers ui it does not trigger since the characters amount is cut
-                                this.showErrorMsg(elemToValidate, 'Maxlength');
+                                this.showErrorMsg(elemToValidate, 'maxlength');
                                 break;
                             case "stepMismatch":
-                                this.showErrorMsg(elemToValidate, 'Stepmismatch');
+                                this.showErrorMsg(elemToValidate, 'stepmismatch');
                                 break;
                             case "rangeUnderflow":
-                                this.showErrorMsg(elemToValidate, 'Min');
+                                this.showErrorMsg(elemToValidate, 'min');
                                 break;
                             case "rangeOverflow":
-                                this.showErrorMsg(elemToValidate, 'Max');
+                                this.showErrorMsg(elemToValidate, 'max');
                                 break;
                             case "patternMismatch":
-                                this.showErrorMsg(elemToValidate, 'Patternmismatch');
+                                this.showErrorMsg(elemToValidate, 'patternmismatch');
                                 break;
                             default:
                                 break;

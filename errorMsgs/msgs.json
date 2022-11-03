@@ -2,106 +2,106 @@
     "en": {
         "validation": {
             "name": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"},
                 {"type":"validName",
                 "msg": "Only Ezequiel is accepted as name"}
             ],
             "lastname": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"}
             ],
             "age": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"},
-                {"type":"Badinput",
+                {"type":"badinput",
                 "msg": "Please write a number"}                
             ],
             "birthdate": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"},
-                {"type": "Badinput",
+                {"type": "badinput",
                 "msg":"Please fill the missing information in the field"},
-                {"type": "Min",
+                {"type": "min",
                 "msg":"The minimum date must be 100 years ago"}
             ],            
             "email": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"},
-                {"type":"Typemismatch",
+                {"type":"typemismatch",
                 "msg":"This field is required"}                  
             ],
             "wakeup": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"},
-                {"type": "Badinput",
+                {"type": "badinput",
                 "msg":"Please fill the missing information in the field"}
             ],
             "site": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"},
-                {"type": "Typemismatch",
+                {"type": "typemismatch",
                 "msg":"Please fill the field with a proper url"}
             ],
             "pet": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"}
             ],
             "pettype": [
-                {"type":"Required",
+                {"type":"required",
                 "msg":"This field is required"}
             ],
             "hero": [
-                {"type": "Required",
+                {"type": "required",
                 "msg":"This field is required"},
-                {"type": "Minlength",
+                {"type": "minlength",
                 "msg":"Please at least 10 characters are needed"}
             ],
             "pass": [
-                {"type": "Required",
+                {"type": "required",
                 "msg":"This field is required"},
-                {"type": "Patternmismatch",
+                {"type": "patternmismatch",
                 "msg":"The password does not match the minimum requirements"}
             ],
             "pass1": [
-                {"type": "Required",
+                {"type": "required",
                 "msg":"This field is required"},
-                {"type": "Patternmismatch",
+                {"type": "patternmismatch",
                 "msg":"The password does not match the minimum requirements"},
-                {"type": "Target",
+                {"type": "target",
                 "msg": "This value of this field does not match the previous one"}
                 
             ],
             "step": [
-                {"type": "Required",
+                {"type": "required",
                 "msg":"This field is required"}, 
-                {"type": "Badinput",
+                {"type": "badinput",
                 "msg":"This field must be filled with a number based from 2"}, 
-                {"type": "Stepmismatch",
+                {"type": "stepmismatch",
                 "msg":"This field must be filled with a number based from 2 on"}
             ],
             "night": [
-                {"type": "Required",
+                {"type": "required",
                 "msg":"This field is required"}, 
-                {"type": "Badinput",
+                {"type": "badinput",
                 "msg":"This field must be filled with a number"}, 
-                {"type": "Min",
+                {"type": "min",
                 "msg":"This field must be filled with a minimum number of 5 hours"}
             ],
             "maxnight": [
-                {"type": "Required",
+                {"type": "required",
                 "msg":"This field is required"},
-                {"type": "Badinput",
+                {"type": "badinput",
                 "msg":"This field must be filled with a number"},  
-                {"type": "Max",
+                {"type": "max",
                 "msg":"This field must be filled with a maximum number of 15 hours"}
             ],
             "cardinal": [
-                {"type":"Required",
+                {"type":"required",
                 "msg": "This field is required"}
             ],
             "comment": [
-                {"type":"Required",
+                {"type":"required",
                 "msg": "This field is required"}
             ]
         },

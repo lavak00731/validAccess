@@ -1,0 +1,14 @@
+{
+    "en": {
+        "validation": {
+            "fieldNameAttribute": [
+                {"type":"The Type of Validation which is going to be applied",
+                "msg":"Custom Message"},
+                {"type":"Another Type of Validation, list can be found in Readme",
+                "msg": "Another Custom Message"}
+            ]            
+        },
+        "sending": "Message shown when the form is sending information",
+        "textcount": "{variable} legend to be shown when the user is typing in a textarea"       
+    }
+}

@@ -91,6 +91,12 @@ Valid Access handle the error messages in two different ways:
 
 ### Messages Json File Structure
 
+The json structure is made based, first in language. That attribute can be taken from [html lang attribute](https://www.w3.org/WAI/standards-guidelines/act/rules/b5c3f8/), then there are 3 main features to set messages:
+
+1. "validation": gathers all validation messages. The customized messages per field are set using field name attribute and an array of objects, which first is set the type of validation and then the message for that verifycation. It is used an array, because a field could be validated in different ways (required value, value format, etc.).
+2. The second main feature is "sending", which is the message for the loading backdrop informing a user that the information from the form is submitting.
+3. Finally, if text count functionality is used, "textcount" is the legend which will appear below the textarea. Depending on the message, {variable} can be placed in different position on the sentence 
+
             {
                 //Language which appears on html lang attribute
                 //This is going to be picked in order to select the right language
@@ -102,28 +108,28 @@ Valid Access handle the error messages in two different ways:
                         //The first part of the object is the type of validation, the second the message to be displayed
                         "name": [
                             //Required validation
-                            {"type":"Required",
+                            {"type":"required",
                             "msg":"This field is required"},
 
-                            {"type":"Badinput",
+                            {"type":"badinput",
                             "msg": "Please write a number"}
 
-                            {"type": "Min",
+                            {"type": "min",
                             "msg":"The minimum date must be 100 years ago"} 
 
-                            {"type":"Typemismatch",
+                            {"type":"typemismatch",
                             "msg":"This field is required"}
 
-                            {"type": "Minlength",
+                            {"type": "minlength",
                             "msg":"Please at least 10 characters are needed"}
 
-                            {"type": "Patternmismatch",
+                            {"type": "patternmismatch",
                             "msg":"The password does not match the minimum requirements"}
 
-                            {"type": "Stepmismatch",
+                            {"type": "stepmismatch",
                             "msg":"This field must be filled with a number based from 2 on"}
 
-                            {"type": "Max",
+                            {"type": "max",
                             "msg":"This field must be filled with a maximum number of 15 hours"}
 
                             //External Validation Function Name
@@ -132,7 +138,7 @@ Valid Access handle the error messages in two different ways:
 
                             //Two fields with the same value
                             //Target is the type of validation
-                            {"type": "Target",
+                            {"type": "target",
                             "msg": "This value of this field does not match the previous one"}
                         ],                       
                     },
@@ -140,10 +146,12 @@ Valid Access handle the error messages in two different ways:
                     "sending": "Form is being sent...",
                     //Legend which will appear below a textearea with text count
                     //Variable is the maximum characters for that field, less the characters already written on it
+                    //Depending on the message, {variable} can be placed in different position on the sentence
                     "textcount": "{variable} characters left"       
                 }
             }
 
+For a json example, it can be downloaded from [folder assestExample](./assetExamples/customErrorMsgExample.json).
 
 ## Special Features
 
@@ -151,7 +159,7 @@ Valid Access handle the error messages in two different ways:
 
 This library relies in basic validation on [Html5 validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation). So the type of validations are:
 
-   - valueMissing: A boolean value that is true if the element has a required attribute, but no value, or false otherwise. If true, the element matches the :invalid CSS pseudo-class.
+   - valueMissing(Required): A boolean value that is true if the element has a required attribute, but no value, or false otherwise. If true, the element matches the :invalid CSS pseudo-class. Internally, it is used "Required" as term much easier to remember in this case.
    - [badInput](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/badInput)
    - [patternMismatch](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/patternMismatch)
    - [rangeOverflow](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/rangeOverflow)
@@ -160,6 +168,8 @@ This library relies in basic validation on [Html5 validation](https://developer.
    - [tooLong](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/tooLong)
    - [tooShort](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/tooShort)
    - [typeMismatch](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/typeMismatch)
+
+   All these values are used for setting [custom error messages](#user-content-error-messages)
 
    ### External Validations
 
