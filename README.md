@@ -87,7 +87,7 @@ Any doubt regarding how to build an accessible form, follow [WCAG](https://www.w
 Valid Access handle the error messages in two different ways:
 
 1. If there is no json file with error messages, some default error messages will appear. The content will be the same as Html5 default messages.
-2. If you want customized error messages, there is a parameter called **msgUrl** in the instantiation part, where a json file can be set in order to deliver customized messages per field. 
+2. If you want customized error messages, there is a parameter called **msgUrl** in the instantiation part, where a json file location can be set in order to deliver customized messages per field. 
 
 ### Messages Json File Structure
 
@@ -198,7 +198,7 @@ When you need two identical values in two different fields, we use a built in fu
 
 #### Example of Identical Values in different inputs validation
 
-***data-valida-target="pass"***
+***data-valida-target="idOfElementToValidateValue"*** must be added to the field which it is needed to compare its value.
 
 
                 <div class="field-wrapper">
@@ -209,3 +209,30 @@ When you need two identical values in two different fields, we use a built in fu
                     <label for="pass1">Please, repeat password</label>
                     <input type="password" name="pass1" id="pass1" required aria-invalid="false" data-valida-target="pass">        
                 </div>
+
+### Text count in textarea
+
+This feature counts text while the user is typing in a text area. There are two approaches about this feature:
+
+1. Stop counting when the maximum is reached and the textarea does not admit more characters.
+2. Continue counting but the extra characters are shown in negative amount. Textarea keeps accepting more characters.
+
+In any of the cases, dynamically Valid Access will set a paragraph with class "text-count" with aria-live="polite" where the user will be notified about the changes.
+
+#### 1. Text count restricted example
+
+In order to achieve this feature, just add the attribute ***data-valida-text-count*** to ***true*** and add maxlength with the maximum amount of characters permited. 
+
+In this case maxlength attribute will set the {variable} information in the feedback paragraph.
+
+            <label for="comment">Any Comment?</label>
+            <textarea name="comment" id="comment" cols="30" rows="10" data-valida-text-count="true" aria-describedby="max-characters" required maxlength="200"></textarea>
+
+#### 2. Text count with suggestd amount but not restricting the input
+
+In order to achieve this feature, just add ***data-valida-text-count*** to ***true*** and please add the attribute ***data-valida-max-text*** with the desired amount of characters. 
+
+In this case data-valida-max-text attribute will set the {variable} information in the feedback paragraph.
+
+            <label for="comment1">Any Comment, we recommend to be short</label>
+            <textarea name="comment1" id="comment1" cols="30" rows="10" data-valida-text-count="true" aria-describedby="max-characters1" required data-valida-max-text="200"></textarea>
