@@ -78,6 +78,18 @@ Some validations do not need any attribute such us:
 
 The rest will depend if it is needed some extra features below detailed.
 
+Appart of the mentioned form, two hidden sections, one for error and one for success must be placed:
+
+        <div id="success" hidden>
+            <h2 tabIndex="-1">The form was sent successfully</h2>
+            <p>Briefly, we are going to get in touch with you.</p>
+        </div>
+        
+        <div id="error" hidden>
+            <h2 tabIndex="-1">Sorry, something went wrong</h2>
+            <p>Please try again in couple of minutes</p>
+        </div>
+
 If you are looking for a basic implementation, you have [our basic example](./examples/basic.html).
 
 Any doubt regarding how to build an accessible form, follow [WCAG](https://www.w3.org/WAI/tutorials/forms/).
