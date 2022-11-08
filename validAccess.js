@@ -27,7 +27,7 @@ class ValidAccess {
         url = isParameterDefined('url'),
         success = isParameterDefined('success'),
         error = isParameterDefined('error'),
-        msgUrl = isParameterDefined('msgUrl'),
+        msgUrl = false,
         loadingImg = isParameterDefined('loadingImg'),
         bannerClass = 'alert-banner',
         loadingWrapper = 'loadingWrapper',
@@ -48,6 +48,7 @@ class ValidAccess {
         this.formIsMultistep = isMultistep;
         this.formElem = document.querySelector('#'+this.formId);
         this.formChildrenInput;
+        
         //init function
         this.init();
     }    
@@ -55,7 +56,8 @@ class ValidAccess {
         //DOM Ready
         document.addEventListener("DOMContentLoaded", async (event) => {
             event.preventDefault();
-            if(!this.formMsgs) {
+            //if formMsgs are not define and msgUrl is defined
+            if(!this.formMsgs && this.msgUrl) {
                 this.formMsgs = await validateErrorMsgSource(this.msgUrl); 
             }
             //add the custom class to the banner
@@ -125,6 +127,7 @@ class ValidAccess {
             this.addOrRemoveNegativeClass(elem);
         }
     }
+    //count characters in textareas
     textCount(event) {
         if(event.target.dataset.validaTextCount) {
             const tareaParent= event.target.parentElement
@@ -204,38 +207,64 @@ class ValidAccess {
         }
         
     }
+    //returns some default messages 
+    defaultMsgs(lang, action) {
+        //remove any sublanguage from the 
+        lang = lang.split('-');
+        //small portion of messages for sending and character count
+        const spareMsgs = {
+                            en: {
+                                sending: "Form is being sent...",
+                                textcount: "{variable} characters left" 
+                            },
+                            es: {
+                                sending: "El formulario está siendo enviado...",
+                                textcount: "Quedan {variable} caracteres disponibles" 
+                            }
+                        }
+        return spareMsgs[lang[0]][action];
+        
+    }      
+    
+    //return html template for error paragraph
+    errorTemplate(field, valMsgId, validation) {
+        if(this.msgUrl) {
+            return `<p  id="${valMsgId}" class="${this.formFieldError}">${this.errorMsgs(`${field.name}`,validation)}</p>`;
+        } else {
+            return `<p  id="${valMsgId}" class="${this.formFieldError}">${field.validationMessage}</p>`
+        }
+    }
 
     //show error message
     showErrorMsg(field, validation) {
-        if(this.errorMsgs(`${field.name}`,validation)) {
-            //set field as aria-invalid true
-            field.setAttribute('aria-invalid', true);
-            //set error id
-            const valMsgId = validation+"-"+field.name;
-            //set the template of error paragraph
-            const errorMsgTemplate = `<p  id="${valMsgId}" class="${this.formFieldError}">${this.errorMsgs(`${field.name}`,validation)}</p>`;            
-            //checks if the element with error msg is not already in place
-            if(!this.formElem.querySelector('#'+valMsgId)){
-                //Radio Buttons and checkboxes error msg is placed at the fieldset bottom
-                if(field.type === 'radio' || field.type === 'checkbox') {
-                    const fieldWrapper =  field.closest('fieldset');
-                    fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate);                                 
-                 } else {
-                    //other form fields, error msgs are inserted right after the element               
-                     field.parentElement.insertAdjacentHTML('beforeend', errorMsgTemplate);                                
-                 }
-            }
-            //add aria-describedby
-            if(this.checkIfAriaDescribedby(field)) {
-                //if there was already aria-describedby attribute, just add the saved value, plus the error
-                field.setAttribute('aria-describedby', field.dataset.validaAriaDescribed +' '+ valMsgId);
-            } else {
-                //if not add just error one
-                field.setAttribute('aria-describedby', valMsgId);
-            }
-        } else {
-            throw new Error(`There is no data-validA attribute set for ${field.name} for validation type ${validation}`);            
+        //set field as aria-invalid true
+        field.setAttribute('aria-invalid', true);
+        //set error id
+        const valMsgId = validation+"-"+field.name;
+        //set the template of error paragraph
+        const errorMsgTemplate = this.errorTemplate(field, valMsgId, validation); 
+       
+                   
+        //checks if the element with error msg is not already in place
+        if(!this.formElem.querySelector('#'+valMsgId)){
+            //Radio Buttons and checkboxes error msg is placed at the fieldset bottom
+            if(field.type === 'radio' || field.type === 'checkbox') {
+                const fieldWrapper =  field.closest('fieldset');
+                fieldWrapper.insertAdjacentHTML('beforeend', errorMsgTemplate);                                 
+                } else {
+                //other form fields, error msgs are inserted right after the element               
+                    field.parentElement.insertAdjacentHTML('beforeend', errorMsgTemplate);                                
+                }
         }
+        //add aria-describedby
+        if(this.checkIfAriaDescribedby(field)) {
+            //if there was already aria-describedby attribute, just add the saved value, plus the error
+            field.setAttribute('aria-describedby', field.dataset.validaAriaDescribed +' '+ valMsgId);
+        } else {
+            //if not add just error one
+            field.setAttribute('aria-describedby', valMsgId);
+        }
+
     }
     checkIfAriaDescribedby(elem) {
         if(elem.dataset.validaAriaDescribed) {
@@ -423,7 +452,11 @@ class ValidAccess {
         //appending img to img wrapper
         imgWrapper.append(loadImg);
         //adding text to text wrapper
-        loadingText.append(this.formMsgs[document.documentElement.lang]['sending']);
+        if(this.msgUrl) {
+            loadingText.append(this.formMsgs[document.documentElement.lang]['sending']);
+        } else {
+            loadingText.append(this.defaultMsgs(navigator.language, 'sending'));
+        }
         //setting tabIndex, 
         loadingText.setAttribute('tabIndex', '-1');
         if(!this.isLoadingTextVisible) {

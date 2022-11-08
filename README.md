@@ -98,7 +98,7 @@ Any doubt regarding how to build an accessible form, follow [WCAG](https://www.w
 
 Valid Access handle the error messages in two different ways:
 
-1. If there is no json file with error messages, some default error messages will appear. The content will be the same as Html5 default messages.
+1. If there is no json file with error messages, some default error messages will appear. The content will be the same as Html5 default messages. Please, consider that default messages depends on user preferences in the browser. For example, if the user has selected Spanish (es) as browser language, the default error messages will appear in that language, in despite if the html document is set to English (en). If you want a complete language manage, please set a json file following the next instructions.
 2. If you want customized error messages, there is a parameter called **msgUrl** in the instantiation part, where a json file location can be set in order to deliver customized messages per field. 
 
 ### Messages Json File Structure
