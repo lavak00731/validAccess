@@ -103,6 +103,10 @@
             "comment": [
                 {"type":"required",
                 "msg": "This field is required"}
+            ],
+            "comment1": [
+                {"type":"required",
+                "msg": "This field is required"}
             ]
         },
         "sending": "Form is being sent...",

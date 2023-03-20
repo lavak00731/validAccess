@@ -1,0 +1,24 @@
+{
+  "name": "validaccess",
+  "version": "1.0.0",
+  "type": "module",
+  "files":["dist"],
+  "main":"./dist/validaccess.umd.js",
+  "module":"./dist/validaccess.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/validaccess.es.js",
+      "require": "./dist/validaccess.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "jest watchAll"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3",
+    "vite": "^4.1.0"
+  }
+}
