@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validAccess - Accesible Validation Library - Ajax Example</title>
+    <link rel="stylesheet" href="../styles/basicstyling.css">
+</head>
+<body>
+    <main>
+        <article>
+            <h1>Example 1: Basic Form</h1>
+            <div class="form-wrapper">
+                <form id="form1" action="welcome.html">
+                    <div role="alert" tabIndex="-1" hidden>
+                        <span aria-hidden="true" class="error-icon"></span>
+                        Please look over the following form fields with errors
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" required >                        
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname" id="lastname" required >                       
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="age">Age</label>
+                        <input type="number" name="age" id="age" aria-describedby="sayTruth" required >
+                        <p id="sayTruth">Please say the truth</p>                        
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="zip">Zip Code</label>
+                        <input type="number" name="zip" id="zip" aria-describedby="ziphelp" required  data-valida-fetch="//api.zippopotam.us/us/">
+                        <p id="ziphelp">US zip code</p>
+                   </div>
+                  <!--  <div class="field-wrapper">
+                        <label for="user">User Name</label>
+                        <input type="text" name="user" id="user" aria-describedby="userhelp" required  data-valida-fetch="https://mocki.io/v1/d4867d8b-b5d5-4a48-a4ab-79131b5809b8">
+                        <p id="userhelp">Pick a user name</p>
+                   </div> -->
+                    <div class="field-wrapper">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+                <div id="success" hidden>
+                    <h2 tabIndex="-1">The form was sent successfully</h2>
+                    <p>Briefly, we are going to get in touch with you.</p>
+                </div>
+                <div id="error" hidden>
+                    <h2 tabIndex="-1">Sorry, something went wrong</h2>
+                    <p>Please try again in couple of minutes</p>
+                </div>
+            </div>
+        </article>
+    </main>
+    <script type="module" src="../js/indexajax.js"></script>
+</body>
+</html>

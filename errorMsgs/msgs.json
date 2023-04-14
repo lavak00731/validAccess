@@ -107,6 +107,16 @@
             "comment1": [
                 {"type":"required",
                 "msg": "This field is required"}
+            ],
+            "zip": [
+                {"type": "required",
+                "msg": "This field is required"                    
+                },
+                {"type":"badinput",
+                "msg": "Please write a number"},     
+                {"type": "ajax",
+                "msg": "This zip code is not valid"
+                }
             ]
         },
         "sending": "Form is being sent...",

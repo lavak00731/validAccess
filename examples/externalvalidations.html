@@ -19,18 +19,18 @@
                     </div>
                     <div class="field-wrapper">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" required aria-invalid="false" aria-describedby="fieldData" data-valida-vFunc="validName">  
+                        <input type="text" name="name" id="name" required  aria-describedby="fieldData" data-valida-vFunc="validName">  
                         <p id="fieldData">Only "Ezequiel" is accepted</p>                      
                     </div>
                     <div class="field-wrapper">
                         <label for="pass">Please, set a password</label>
-                        <input type="password" name="pass" id="pass" required aria-invalid="false" aria-describedby="min-description" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$">
+                        <input type="password" name="pass" id="pass" required  aria-describedby="min-description" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$">
                         <p id="min-description"> 	
                             Password requires at least 1 lower case character, 1 upper case character, 1 number, 1 special character and must be at least 8 characters</p>
                     </div>                    
                     <div class="field-wrapper">
                         <label for="pass1">Please, repeat password</label>
-                        <input type="password" name="pass1" id="pass1" required aria-invalid="false" aria-describedby="min-description2" data-valida-target="pass" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$">
+                        <input type="password" name="pass1" id="pass1" required  aria-describedby="min-description2" data-valida-target="pass" pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$">
                         <p id="min-description2">This field must have the same value as the previous one</p>
                     </div>
                     <div class="field-wrapper">

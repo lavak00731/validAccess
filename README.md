@@ -62,8 +62,7 @@ Valid Access is a library planned to be easy to implement. Regarding the very mi
                 Please look over the following form fields with errors
             </div>
 3. Labels y form elements (inputs, selects, textareas, etc.) with name and id attributes.
-4. Add attribute ***aria-invalid="false"*** as a starting point
-5. Please add other attributes depending on the validation type you want to do perform:
+4. Please add other attributes depending on the validation type you want to do perform:
     - [***required***](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#required)
     - [***pattern***](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#pattern)
     - [***minlength***](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#minlength)
@@ -203,11 +202,11 @@ When you need two identical values in two different fields, we use a built in fu
 
                 <div class="field-wrapper">
                     <label for="pass">Please, set a password</label>
-                    <input type="password" name="pass" id="pass" required aria-invalid="false">
+                    <input type="password" name="pass" id="pass" required>
                 </div>                    
                 <div class="field-wrapper">
                     <label for="pass1">Please, repeat password</label>
-                    <input type="password" name="pass1" id="pass1" required aria-invalid="false" data-valida-target="pass">        
+                    <input type="password" name="pass1" id="pass1" required  data-valida-target="pass">        
                 </div>
 
 ### Text count in textarea
