@@ -114,7 +114,7 @@
                 },
                 {"type":"badinput",
                 "msg": "Please write a number"},     
-                {"type": "ajax",
+                {"type": "fetch",
                 "msg": "This zip code is not valid"
                 }
             ]
