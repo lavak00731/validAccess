@@ -117,6 +117,16 @@
                 {"type": "fetch",
                 "msg": "This zip code is not valid"
                 }
+            ],
+            "user": [
+                {"type": "required",
+                "msg": "This field is required"                    
+                },
+                {"type":"badinput",
+                "msg": "Please write a number"},     
+                {"type": "fetch",
+                "msg": "This id is not valid"
+                }
             ]
         },
         "sending": "Form is being sent...",

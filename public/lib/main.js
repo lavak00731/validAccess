@@ -284,15 +284,46 @@ export class ValidAccess {
             }
         }        
     }
+    //checks for promises
+    async checkAsyncResults(elemWithPromises) {
+        let allPromises = [];
+        elemWithPromises.forEach((elem) => {
+            if(elem.validity.valid) {
+                allPromises.push(this.validaFetch(elem))
+            }
+        });
+        const results = await Promise.allSettled(allPromises);
+        if(results.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //creates an array of promises
+    checkPromises(){        
+        const elemWithPromises = document.querySelectorAll('input[data-valida-fetch]');
+        return this.checkAsyncResults(elemWithPromises) && elemWithPromises.length > 0;
+    }
+    showBanner() {
+        this.formElem.querySelector('.'+this.formBannerClass).removeAttribute('hidden');
+        this.formElem.querySelector('.'+this.formBannerClass).focus();
+    }
+    hideBanner() {
+        this.formElem.querySelector('.'+this.formBannerClass).setAttribute('hidden', true)
+    }
     //shows and hide banner checking for a valid form
     isValidForm () {
+        //if there are 
+        if(this.checkPromises()) {
+            this.showBanner();
+            return false
+        }
         //if there are field with aria-invalid, error banner must be shown
         if(this.formElem.querySelectorAll('[aria-invalid="true"]').length > 0) {
-            this.formElem.querySelector('.'+this.formBannerClass).removeAttribute('hidden');
-            this.formElem.querySelector('.'+this.formBannerClass).focus();
+            this.showBanner();
             return false;
         } else {
-            this.formElem.querySelector('.'+this.formBannerClass).setAttribute('hidden', true);
+            this.hideBanner();
             return true;
         }
     }
@@ -320,7 +351,6 @@ export class ValidAccess {
         const elemValue = elem.value;
         const elemUrl = elem.dataset.validaFetch;
         const response = await fetch(elemUrl+elemValue);
-        console.log(response.status);
         if(!response.ok && response.status === 404) {
             this.showErrorMsg(elem, 'fetch');
             return true;

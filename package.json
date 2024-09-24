@@ -2,15 +2,9 @@
   "name": "validaccess",
   "version": "1.0.0",
   "type": "module",
-  "files":["dist"],
-  "main":"./dist/validaccess.umd.js",
-  "module":"./dist/validaccess.es.js",
-  "exports": {
-    ".": {
-      "import": "./dist/validaccess.es.js",
-      "require": "./dist/validaccess.umd.js"
-    }
-  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,4 +1,4 @@
-import { ValidAccess } from "./../lib/main";
+import { ValidAccess } from "./../lib/main.js";
 
 let form = new ValidAccess({
 formId: "form1"

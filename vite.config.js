@@ -6,11 +6,8 @@ export default defineConfig({
     esbuild: {
       minify: true,
     },
-    minify:true,
-    lib: {
-      entry: resolve(__dirname, 'lib/main.js'),
-      name: 'validaccess',
-      fileName: (format) => `validaccess.${format}.js`,
-    },    
-  }
+  },
+  server: {
+    open: 'index.html',
+  },
 });
